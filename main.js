@@ -8,23 +8,25 @@ function createWindow() {
   let ses = session.defaultSession
 
   mainWindow = new BrowserWindow({
-    width: 800, height: 600,
+    width: 800,
+    height: 600,
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
       preload: __dirname + '/preload.js'
     }
   })
-  mainWindow.loadFile('User.html')
+  mainWindow.loadFile('Main.html')
   mainWindow.menuBarVisible = false
   // mainWindow.fullScreen = true;
   mainWindow.webContents.openDevTools();
+  mainWindow.on('closed', () => {
+    mainWindow = null
+  })
 
   ses.on('will-download', (e, downloadItem, webContents) => {
-
     let name = downloadItem.getFilename()
     const existingFilePath = app.getPath('desktop') + `\\ברקוד- לא למחוק` + `/${name}`
-
     if (fs.existsSync(existingFilePath)) {
       fs.unlink(existingFilePath, (err) => {
         if (err) {
@@ -49,11 +51,6 @@ function createWindow() {
         dialog.showErrorBox('הודעת מערכת', 'הקובץ לא נשמר')
       }
     })
-  })
-
-
-  mainWindow.on('closed', () => {
-    mainWindow = null
   })
 }
 
@@ -100,10 +97,6 @@ app.on('window-all-closed', () => {
   app.quit()
 })
 
-// When app icon is clicked and app is running, (macOS) recreate the BrowserWindow
 app.on('activate', () => {
   if (mainWindow === null) createWindow()
 })
-
-
-

@@ -9,35 +9,39 @@
     <link href="styleSheets/MainStyleSheet.css" rel="stylesheet" />
     <link href="styleSheets/Lottery/UserStyleSheet.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/shared.js"></script>
 
     <script>
         var manageLotteryConfig = ""
         var gifts
         var systemConfig = ""
+        var currentDate = getTodayDate();
 
         function onLoad() {
             fileName = 'systemConfig'
             window.expose.SendExcel("sendReadExcel", fileName);
             window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
-                systemConfig = JSON.parse(data)
-                if (systemConfig.color == "3") {
-                    document.getElementById("background").style.backgroundImage = "url('resources/lottery/lottery1.png')";
-                }
-                fileName = 'manageLotteryConfig'
-                window.expose.SendExcel("sendReadExcel", fileName);
-                window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
-                    manageLotteryConfig = JSON.parse(data)
-                    gifts = manageLotteryConfig.gifts;
-                    // Populate the gifts dropdown
-                    var giftsDropdown = document.querySelector("#gifts-dropdown");
+                if (data != 0) {
+                    systemConfig = JSON.parse(data)
+                    if (currentDate > systemConfig.date) {
+                        login("Expired");
+                    }
+                    fileName = 'manageLotteryConfig'
+                    window.expose.SendExcel("sendReadExcel", fileName);
+                    window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
+                        manageLotteryConfig = JSON.parse(data)
+                        gifts = manageLotteryConfig.gifts;
+                        // Populate the gifts dropdown
+                        var giftsDropdown = document.querySelector("#gifts-dropdown");
 
-                    gifts.forEach(function (gift) {
-                        var option = document.createElement("option");
-                        option.value = gift.id;
-                        option.textContent = gift.name;
-                        giftsDropdown.appendChild(option);
-                    });
-                })
+                        gifts.forEach(function (gift) {
+                            var option = document.createElement("option");
+                            option.value = gift.id;
+                            option.textContent = gift.name;
+                            giftsDropdown.appendChild(option);
+                        });
+                    })
+                }
             })
         }
 

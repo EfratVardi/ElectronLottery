@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lottery</title>
+</head>
+
+<body onload="onLoad()">
+    <link href="styleSheets/MainStyleSheet.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/shared.js"></script>
+    <script src="js/aes.js"></script>
+
+    <script>
+        function onLoad() {
+            fileName = 'systemConfig'
+            window.expose.SendExcel("sendReadExcel", fileName);
+            window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
+                if (data != 0)
+                    login("LotteryUser")
+            })
+        }
+
+        function decrypt(password) {
+            var secretKey = "efrat";
+            var decrypted = CryptoJS.AES.decrypt(password, secretKey);
+            return decrypted.toString(CryptoJS.enc.Utf8);
+        }
+
+        function check() {
+            var password = decrypt(document.getElementById("password").value)
+            var isJson = isJsonString(password)
+            if (!isJson) {
+                alert("הסיסמא שגויה")
+            }
+            else {
+                password = JSON.parse(password)
+                if (password.date && password.name && password.range) {
+                    fileName = "systemConfig"
+                    window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(password)]);
+                    window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
+                        login("LotteryUser")
+                    });
+                }
+            }
+        }
+
+        function isJsonString(str) {
+            try {
+                JSON.parse(str);
+            } catch (e) {
+                return false;
+            }
+            return true;
+        }
+
+    </script>
+    <div class="background" id="background">
+        <div class="text">
+            <div> הכניסי את הסיסמא </div>
+            <input type="text" id="password">
+            <div id="check">
+                <button id="lottery-btn" onclick="check()">אישור</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
