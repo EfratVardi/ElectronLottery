@@ -84,15 +84,17 @@
 
             // Change the button text to "Lottery Again"
             var lotteryBtn = document.querySelector("#lottery-btn");
-            lotteryBtn.textContent = "Lottery Again";
+            lotteryBtn.textContent = "הגרלה חוזרת";
         }
 
         // Define a function to display the selected gift
         function displaySelectedGift() {
-            var description = document.querySelector("#gift-description");
+            var name = document.querySelector("#line1");
+            var description = document.querySelector("#line2");
             var selectedIndex = document.querySelector("#gifts-dropdown").value;
             var selectedGift = gifts.find(x => x.id == selectedIndex)
-            description.textContent = selectedGift.name;
+            document.getElementById("line1").innerHTML = selectedGift.name;
+            document.getElementById("line2").innerHTML = selectedGift.description;
 
             // Display the lottery number if the gift has already been won
             var lotteryNumberInputs = document.querySelectorAll(".lottery-number-input");
@@ -110,9 +112,9 @@
             // Change the button text to "Lottery Again" if the selected gift has already been won
             var lotteryBtn = document.querySelector("#lottery-btn");
             if (selectedGift.lotteryNumber !== null) {
-                lotteryBtn.textContent = "Lottery Again";
+                lotteryBtn.textContent = "הגרלה חוזרת";
             } else {
-                lotteryBtn.textContent = "Generate Number";
+                lotteryBtn.textContent = "הגרלה";
             }
         }
 
@@ -126,14 +128,15 @@
     </script>
     <div class="background" id="background" style="background-image:url('resources/userBackground.gif') ;">
         <div class="text">
-            <div id="gift-description">ברוכות הבאות להגרלה</div>
+            <div id="line1">ברוכות הבאות להגרלה</div>
+            <div id="line2"></div>
             <div id="lottery" style="display: none;">
                 <select id="gifts-dropdown" onchange="displaySelectedGift()">
                 </select>
                 <button id="lottery-btn" onclick="generateLotteryNumber()">Generate Number</button>
             </div>
             <div id="start" style="display: block;">
-                <button id="lottery-btn" onclick="start()">start</button>
+                <button id="lottery-btn" onclick="start()">התחלה</button>
             </div>
             <br><br>
 

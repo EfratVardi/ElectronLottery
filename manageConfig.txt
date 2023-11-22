@@ -1,1 +1,1 @@
-{"gifts":[{"id":0,"name":"hhghg","description":"nbnbnnbnbn","lotteryNumber":38},{"id":1,"name":"bbbj","description":"hghghghg","lotteryNumber":null}]}
+{"gifts":[{"id":0,"name":"אפרת ","description":"מלכה","lotteryNumber":95},{"id":1,"name":"משה","description":"hghghghg","lotteryNumber":70},{"id":2,"name":"מוישי","description":"המתוק","lotteryNumber":67}]}
