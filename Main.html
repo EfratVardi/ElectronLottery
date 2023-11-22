@@ -17,7 +17,7 @@
             window.expose.SendExcel("sendReadExcel", fileName);
             window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
                 if (data != 0)
-                    login("LotteryUser")
+                    login("User")
             })
         }
 
@@ -39,7 +39,7 @@
                     fileName = "systemConfig"
                     window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(password)]);
                     window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
-                        login("LotteryUser")
+                        login("User")
                     });
                 }
             }
