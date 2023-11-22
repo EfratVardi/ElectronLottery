@@ -12,7 +12,7 @@
     <script src="js/shared.js"></script>
 
     <script>
-        var manageLotteryConfig = ""
+        var manageConfig = ""
         var gifts
         var systemConfig = ""
         var currentDate = getTodayDate();
@@ -26,11 +26,11 @@
                     if (currentDate > systemConfig.date) {
                         login("Expired");
                     }
-                    fileName = 'manageLotteryConfig'
+                    fileName = 'manageConfig'
                     window.expose.SendExcel("sendReadExcel", fileName);
                     window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
-                        manageLotteryConfig = JSON.parse(data)
-                        gifts = manageLotteryConfig.gifts;
+                        manageConfig = JSON.parse(data)
+                        gifts = manageConfig.gifts;
                         // Populate the gifts dropdown
                         var giftsDropdown = document.querySelector("#gifts-dropdown");
 
@@ -55,8 +55,8 @@
             var selectedGiftIndex = document.querySelector("#gifts-dropdown").value;
             var selectedGift = gifts.find(x => x.id == selectedGiftIndex)
 
-            var min = manageLotteryConfig.minNumber;
-            var max = manageLotteryConfig.maxNumber;
+            var min = systemConfig.min;
+            var max = systemConfig.max;
             var canGenerateAgain = false;
             var lotteryNumber;
 
@@ -76,9 +76,9 @@
             });
 
             //Update in TXT file
-            fileName = "manageLotteryConfig"
-            manageLotteryConfig.gifts = gifts
-            window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(manageLotteryConfig)]);
+            fileName = "manageConfig"
+            manageConfig.gifts = gifts
+            window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(manageConfig)]);
             window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
             });
 
@@ -119,6 +119,7 @@
         function start() {
             document.getElementById("start").style.display = "none";
             document.getElementById("lottery").style.display = "block";
+            document.getElementById("container").style.display = "flex";
             displaySelectedGift()
         }
 
@@ -136,8 +137,7 @@
             </div>
             <br><br>
 
-            <div class="container">
-                <input class="lottery-number-input" type="text" readonly>
+            <div class="container" id="container">
                 <input class="lottery-number-input" type="text" readonly>
                 <input class="lottery-number-input" type="text" readonly>
                 <input class="lottery-number-input" type="text" readonly>

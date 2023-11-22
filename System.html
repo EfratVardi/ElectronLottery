@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>הגדרות המערכת</title>
+</head>
+
+<body onload="onLoad()">
+
+    <link href="StyleSheets/SystemStyleSheet.css" rel="stylesheet" />
+    <link href="StyleSheets/MainStyleSheet.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/ag-grid-community.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/xlsx.full.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/shared.js"></script>
+
+    <script>
+        var systemConfig = ""
+        var counter = 0;
+
+        function onLoad() {
+            fileName = 'systemConfig'
+            window.expose.SendExcel("sendReadExcel", fileName);
+            window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
+                if (data != 0) {
+                    systemConfig = JSON.parse(data)
+                }
+                Object.entries(systemConfig).forEach(x => {
+                    document.getElementById(x[0]).value = x[1]
+                })
+            })
+        }
+
+        document.addEventListener("keypress", function (e) {
+            if (e.target.tagName !== "INPUT") {
+                var input = document.querySelector(".my-input");
+                input.focus();
+                input.value = e.key;
+                e.preventDefault();
+            }
+            counter += 1;
+            if (counter > 9) {
+                if (document.getElementById('code').value == '999999999')
+                    login("Manage")
+            }
+        });
+
+        function update() {
+            Object.entries(systemConfig).forEach(x => {
+                var key = x[0]
+                systemConfig[key] = document.getElementById(x[0]).value
+            })
+            fileName = "systemConfig"
+            window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(systemConfig)]);
+            window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
+                location.reload()
+            });
+        }
+    </script>
+
+    <div class="background" id="background">
+        <div class="text">
+            <div id="line1">הגדרות המערכת</div>
+            <div id="line3"></div>
+            <br />
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="date" class="form-label" >תאריך הפסקת התוכנה</label>
+                        <input type="date" class="form-control" id="date">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="name" class="form-label">שם בית ספר</label>
+                        <input type="text" class="form-control" id="name">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <label for="min" class="form-label">מינימום</label>
+                        <input type="number" class="form-control" id="min">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <label for="max" class="form-label">מקסימום</label>
+                        <input type="number" class="form-control" id="max">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="password" class="form-label">סיסמה</label>
+                        <input type="text" class="form-control" id="password">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="form-label">.</label>
+                        <button onclick="update()" class="form-control">עדכן</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <input type="text" class="my-input" id="code">
+    </div>
+</body>
+
+</html>

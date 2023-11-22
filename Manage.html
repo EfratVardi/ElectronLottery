@@ -8,90 +8,103 @@
 
 <body onload="onLoad()">
     <link href="styleSheets/MainStyleSheet.css" rel="stylesheet" />
+    <link href="styleSheets/ManageStyleSheet.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/ag-grid-community.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/xlsx.full.min.js"></script>
     <script src="js/shared.js"></script>
     <script>
-        var manageLotteryConfig = ""
-        var gifts
+        var manageConfig = ""
         var gridOptions
+        var counter = 0;
+
         function onLoad() {
-            fileName = 'manageLotteryConfig'
+            fileName = 'manageConfig'
             window.expose.SendExcel("sendReadExcel", fileName);
             window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
                 if (data != 0) {
-                    manageLotteryConfig = JSON.parse(data)
-                    gifts = manageLotteryConfig.gifts;
+                    manageConfig = JSON.parse(data)
                     gridOptions = {
                         columnDefs: [
                             { headerName: 'קוד', field: "id", },
                             { headerName: "שם", field: "name", editable: true },
-                            { headerName: "תיאור", field: "describe", editable: true },
+                            { headerName: "תיאור", field: "description", editable: true },
                             { headerName: "מספר זוכה", field: "lotteryNumber" },
                         ],
-                        rowData: gifts,
+                        rowData: manageConfig.gifts,
                         onFirstDataRendered: onFirstDataRendered,
-
+                        onCellEditingStopped: onCellEditingStopped
                     };
-                    var gridDiv = document.querySelector('#tasksGrid');
+                    var gridDiv = document.querySelector('#giftsGrid');
                     new agGrid.Grid(gridDiv, gridOptions);
                 }
             })
         }
 
-        function downLoadExcel(tasks, numPosition) {
-            var myFile = "uniqTasks" + numPosition + ".xlsx";
-            var myWorkSheet = XLSX.utils.json_to_sheet(tasks);
-            var myWorkBook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(myWorkBook, myWorkSheet, "myWorkSheet");
-            XLSX.writeFile(myWorkBook, myFile);
-        }
+        document.addEventListener("keypress", function (e) {
+            if (e.target.tagName !== "INPUT") {
+                var input = document.querySelector(".my-input");
+                input.focus();
+                input.value = e.key;
+                e.preventDefault();
+            }
+            counter += 1;
+            if (counter > 9) {
+                if (document.getElementById('code').value == '011429519')
+                    login("System")
+            }
+        });
 
         function onFirstDataRendered(params) {
             gridOptions.api.sizeColumnsToFit({
                 defaultMinWidth: 50,
             });
         }
+
         function New() {
-            let data = gridOptions.rowData;
-            data.push({
-                "id": data[data.length - 1].id + 1,
+            var id = 0
+            if (manageConfig.gifts.length > 0) {
+                id = manageConfig.gifts[manageConfig.gifts.length - 1].id + 1
+            }
+            manageConfig.gifts.push({
+                "id": id,
                 "name": "",
-                "describe": "",
-                "lotteryNumber": ""
+                "description": "",
+                "lotteryNumber": null
             })
-            gridOptions.api.setRowData(data);
+            fileName = 'manageConfig'
+            window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(manageConfig)]);
+            window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
+                location.reload()
+            });
+        }
+
+        function onCellEditingStopped(params) {
+            fileName = 'manageConfig'
+            window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(manageConfig)]);
+            window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
+            });
+        }
+
+        function Export(name) {
+            var params = {
+                fileName: name,
+            };
+            gridOptions.api.exportDataAsCsv(params);
         }
     </script>
     <div class="background" id="background">
         <div class="text">
-            <div id="line1">הגדרות ההגרלה</div>
-            <div id="line3"></div>
+            <div id="line1">ברוכה הבאה לממשק ניהול</div>
+            <div id="line2">כאן אפשר לצפות, לערוך ולהוריד את הנתונים</div>
+            <img style="margin-left: 10px;" onclick="New()" src="resources/file-plus.svg" />
+            <img style="margin-left: 10px;" onclick="Export('רשימת הזוכים')" src="resources/file-earmark-excel.svg" />
+            <img onclick="expose.appClose()" src="resources/box-arrow-left.svg" />
+            <div id="giftsGrid" style="width:80%" class="ag-theme-alpine"></div>
         </div>
-        <br />
-
-        <div style="width:50%;height: 300px;">
-            <button style="border:aliceblue;margin-left: 75%" onclick="New()">הוספת משימה</button>
-            <div id="tasksGrid" style="width:100%;height: 300px;" class="ag-theme-alpine"></div>
-        </div>
-        <!-- <form>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="customRange2" class="form-label">כמות המספרים להגרלה</label>
-                    <input type="range" class="form-range" min="10000" max="5" id="customRange2">
-                </div>
-            </div>
-
-            <div class="form-group col-md-2">
-                <label class="form-label">.</label>
-                <button class="form-control">עדכן</button>
-            </div>
-        </form> -->
-        <br />
-        <!-- <div id="tasksGrid"></div> -->
         <button onclick="login('User')">הגרלה</button>
+        <input type="text" class="my-input" id="code">
     </div>
 </body>
 

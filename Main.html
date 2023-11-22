@@ -16,7 +16,7 @@
             fileName = 'systemConfig'
             window.expose.SendExcel("sendReadExcel", fileName);
             window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
-                if (data != 0)
+                if (JSON.parse(data).password)
                     login("User")
             })
         }
@@ -35,12 +35,20 @@
             }
             else {
                 password = JSON.parse(password)
-                if (password.date && password.name && password.range) {
+                if (password.date && password.name && password.min && password.max) {
+                    password.password = document.getElementById("password").value
                     fileName = "systemConfig"
                     window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(password)]);
                     window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
-                        login("User")
+                        fileName = "manageConfig"
+                        window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify({"gifts":[]})]);
+                        window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
+                            login("User")
+                        });
                     });
+                }
+                else {
+                    alert("הסיסמא שגויה")
                 }
             }
         }
