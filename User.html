@@ -54,22 +54,27 @@
         function generateLotteryNumber() {
             var selectedGiftIndex = document.querySelector("#gifts-dropdown").value;
             var selectedGift = gifts.find(x => x.id == selectedGiftIndex)
-
-            var min = systemConfig.min;
-            var max = systemConfig.max;
+            var min = parseInt(systemConfig.min);
+            var max = parseInt(systemConfig.max);
             var canGenerateAgain = false;
             var lotteryNumber;
 
             do {
                 // Generate a random number between min and max (inclusive)
-                lotteryNumber = getRandomInt(min, max);
+                lotteryNumber = getRandomInt(min, max).toString();
+                var lotteryNumberInputs = document.querySelectorAll(".lottery-number-input");
+                var count = lotteryNumberInputs.length;
+                if (count > lotteryNumber.length) {
+                    lotteryNumber = '0'.repeat(count - lotteryNumber.length) + lotteryNumber;
+                }
             } while (!canGenerateAgain && gifts.some(gift => gift.lotteryNumber === lotteryNumber));
+
 
             // Update the lottery number of the current gift
             selectedGift.lotteryNumber = lotteryNumber;
             gifts.find(x => x.id == selectedGiftIndex).lotteryNumber = lotteryNumber
+
             // Display the generated lottery number on the page
-            var lotteryNumberInputs = document.querySelectorAll(".lottery-number-input");
             var digits = lotteryNumber.toString().split("");
             lotteryNumberInputs.forEach(function (input, index) {
                 input.value = digits[index];
@@ -126,7 +131,7 @@
         }
 
     </script>
-    <div class="background" id="background" style="background-image:url('resources/userBackground.gif') ;">
+    <div class="background" id="background" style="background-image:url('resources/userBackground.gif');">
         <div class="text">
             <div id="line1">ברוכות הבאות להגרלה</div>
             <div id="line2"></div>
@@ -138,8 +143,8 @@
             <div id="start" style="display: block;">
                 <button id="lottery-btn" onclick="start()">התחלה</button>
             </div>
-            <br><br>
-
+            <br>
+            <br>
             <div class="container" id="container">
                 <input class="lottery-number-input" type="text" readonly>
                 <input class="lottery-number-input" type="text" readonly>

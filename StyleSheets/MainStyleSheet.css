@@ -1,12 +1,15 @@
 ﻿@font-face {
-    font-family: "myFirstFont";
-    src:url("../fonts/GanCLMBold.ttf");
+    font-family: "printFont";
+    src: url("../fonts/FbMagnolia-Regular.otf");
 }
-body, html {
+
+body,
+html {
     height: 100%;
     margin: 0;
     user-select: none;
 }
+
 .background {
     height: 100%;
     background-position: center;
@@ -14,21 +17,16 @@ body, html {
     background-size: cover;
     z-index: -1;
     padding-top: 2.5%;
-    font-family: "myFirstFont";
+    font-family: "printFont";
     padding-bottom: 2.5%;
 }
 
 .my-input {
     border-color: transparent;
-    color:transparent;
-    background-color:transparent;
+    color: transparent;
+    background-color: transparent;
 }
 
 .gif {
     width: 25vw;
 }
-
-
-
-
-

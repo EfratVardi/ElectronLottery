@@ -27,7 +27,6 @@
                     manageConfig = JSON.parse(data)
                     gridOptions = {
                         columnDefs: [
-                            { headerName: 'קוד', field: "id", },
                             { headerName: "שם", field: "name", editable: true },
                             { headerName: "תיאור", field: "description", editable: true },
                             { headerName: "מספר זוכה", field: "lotteryNumber" },
@@ -94,7 +93,7 @@
             gridOptions.api.exportDataAsCsv(params);
         }
     </script>
-    <div class="background" id="background">
+    <div class="background" id="background" style="background-image:url('resources/userBackground.gif');">
         <div class="text">
             <div id="line1">ברוכה הבאה לממשק ניהול</div>
             <div id="line2">כאן אפשר לצפות, לערוך ולהוריד את הנתונים</div>
