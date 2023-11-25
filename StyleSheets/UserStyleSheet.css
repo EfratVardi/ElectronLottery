@@ -26,13 +26,12 @@
 
 #line2 {
   font-size: 3.5vw;
-  color:  white;
-  /* text-shadow:
-    -1px -1px 0 rgb(33, 55, 134),
-    5px -1px 0 rgb(33, 55, 134),
-    -1px 5px 0 rgb(33, 55, 134),
-    5px 5px 0 rgb(33, 55, 134); */
-  /* font-weight: 500; */
+  color:black;
+  text-shadow:
+    -1px -1px 0 white,
+    1px -1px 0 white,
+    -1px 1px 0 white,
+    1px 1px 0 white;
 }
 
 .container {
@@ -45,7 +44,9 @@
   margin-right: 2.5%;
   margin-left: 2.5%;
   border-radius: 11px;
-  border: 6px solid rgb(153, 85, 185);
+  border: 10px solid rgb(153, 85, 185);
   background: rgba(253, 253, 253, 0.70);
-  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+  font-size: 10vw;
+  font-weight: 500;
+  text-align: center;
 }
