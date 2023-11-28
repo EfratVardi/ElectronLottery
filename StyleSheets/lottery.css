@@ -3,9 +3,7 @@
     margin-bottom: 40px;
 }
 
-.balls .ball,
-.balls .bonus,
-.ball:last-child {
+.balls .ball {
     border-radius: 65px;
     box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.5) inset;
     -webkikt-box-shadow: 0 -10px 25px 0 rgba(0, 0, 0, 0.5) inset;
@@ -24,13 +22,11 @@
     color: #fff;
 }
 
-.balls li:before,
-.ball:last-child:before {
+.balls li:before {
     background: none;
 }
 
-.balls .ball:after,
-.balls .bonus:after {
+.balls .ball:after {
     content: "";
     display: block;
     height: 11px;
@@ -41,30 +37,7 @@
     background-size: 500px 1500px;
 }
 
-.balls .bonus.extra {
-    background-position: 54.466% 3.425%;
-    color: #293444;
-}
-
-.balls .bonus:before,
-.ball:last-child:before {
-    width: 40px;
-    height: 20px;
-    font: 11px/18px Oswald;
-    color: #293444;
-    letter-spacing: 0;
-    text-shadow: none;
-    top: 42px;
-    line-height: 12px;
-}
-
-.balls.big .bonus:before {
-    top: 56px;
-    width: 50px;
-}
-
-.balls.big .ball,
-.balls.big .bonus {
+.balls.big .ball {
     background-size: 650px 1950px;
     height: 52px;
     width: 52px;
@@ -74,8 +47,7 @@
     -webkikt-box-shadow: 0 -10px 25px 0 rgba(0, 0, 0, 0.3) inset;
 }
 
-.balls.big .ball:after,
-.balls.big .bonus:after {
+.balls.big .ball:after {
     background-size: 650px 1950px;
     height: 17px;
     bottom: -8px;
@@ -84,36 +56,8 @@
 }
 
 /* NUMBERS GENERATOR */
-.numbers-generator .balls .ball {
+.balls .ball {
     background-color: #0b4cd7;
-}
-
-.numbers-generator .balls .bonus.extra {
-    background-color: #ffdc00;
-    color: #293444;
-}
-
-.numbers-generator .balls .bonus.extra:before {
-    content: "Extra";
-}
-
-/* GENERATOR */
-.generic-box.generator {
-    padding: 30px 0 0;
-}
-
-.generator .title {
-    font-size: 1.125em;
-    color: inherit;
-    margin-left: 30px;
-}
-
-.generator .balls {
-    margin-left: 15px;
-}
-
-.generic-box {
-    padding-bottom: 15px;
 }
 
 /* ANIMATION */
@@ -122,7 +66,7 @@
 }
 
 /* GENERATOR */
-.balls .innerA {
+/* .balls .innerA {
     position: absolute;
     width: 52px;
     height: 52px;
@@ -133,7 +77,7 @@
     top: 0;
     display: block;
     overflow: hidden;
-}
+} */
 
 .balls .innerB,
 .balls .number {
