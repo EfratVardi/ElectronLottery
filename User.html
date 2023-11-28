@@ -64,8 +64,8 @@
 
             do {
                 // Generate a random number between min and max (inclusive)
+                var lotteryNumberInputs = document.querySelectorAll(".lottery-number-input");
                 lotteryNumber = getRandomInt(min, max).toString();
-                var lotteryNumberInputs = document.querySelectorAll(".innerB");
                 var count = lotteryNumberInputs.length;
                 if (count > lotteryNumber.length) {
                     lotteryNumber = '0'.repeat(count - lotteryNumber.length) + lotteryNumber;
@@ -76,23 +76,62 @@
             // Update the lottery number of the current gift
             selectedGift.lotteryNumber = lotteryNumber;
             gifts.find(x => x.id == selectedGiftIndex).lotteryNumber = lotteryNumber
-            lottery()
+
             // Display the generated lottery number on the page
-            // var digits = lotteryNumber.toString().split("");
-            // lotteryNumberInputs.forEach(function (input, index) {
-            //     input.innerHTML = digits[index];
-            // });
+            const promises = [];
 
-            //Update in TXT file
-            fileName = "manageConfig"
-            manageConfig.gifts = gifts
-            window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(manageConfig)]);
-            window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
+            var digits = lotteryNumber.toString().split("");
+            lotteryNumberInputs.forEach(function (input, index) {
+                const promise = new Promise((resolve) => {
+                    displayLotteryNumber(input, 20 * index + 20, digits[index], resolve);
+                });
+                promises.push(promise);
             });
+            Promise.all(promises).then(() => {
+                lotteryNumberInputs.forEach(function (input, index) {
+                    function flicker() {
+                        const colors = ["red", "blue", "green", "yellow"]; // Define an array of colors
+                        const randomColor = colors[Math.floor(Math.random() * colors.length)]; // Select a random color from the array
+                        input.style.color = randomColor; // Apply the random color to the element
+                    }
 
-            // Change the button text to "Lottery Again"
-            var lotteryBtn = document.querySelector("#lottery-btn");
-            lotteryBtn.textContent = "הגרלה חוזרת";
+                    let interval = setInterval(flicker, 200);
+                    setTimeout(() => {
+                        clearInterval(interval)
+                    }, 2000);
+                });
+                //Update in TXT file
+                fileName = "manageConfig"
+                manageConfig.gifts = gifts
+                window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(manageConfig)]);
+                window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
+                });
+
+                // Change the button text to "Lottery Again"
+                var lotteryBtn = document.querySelector("#lottery-btn");
+                lotteryBtn.textContent = "הגרלה חוזרת";
+            });
+        }
+
+        function displayLotteryNumber(input, countNumber, lotteryNumber, resolve) {
+            let i = 0
+            function myInterval() {
+                if (Math.floor(countNumber * 0.9) == i) {
+                    clearInterval(intervalId);
+                    intervalId = setInterval(myInterval, 400);
+                }
+                if (i == countNumber) {
+                    input.value = lotteryNumber;
+                    clearInterval(intervalId);
+                    resolve();
+                }
+                else {
+                    input.value = Math.floor(Math.random() * 10);
+                }
+                i++
+            }
+            // Start updating the value every 1 second
+            let intervalId = setInterval(myInterval, 50);
         }
 
         // Define a function to display the selected gift
@@ -105,11 +144,11 @@
             document.getElementById("line2").innerHTML = selectedGift.description;
 
             // Display the lottery number if the gift has already been won
-            var lotteryNumberInputs = document.querySelectorAll(".innerB");
+            var lotteryNumberInputs = document.querySelectorAll(".lottery-number-input");
             if (selectedGift.lotteryNumber !== null) {
                 var digits = selectedGift.lotteryNumber.toString().split("");
                 lotteryNumberInputs.forEach(function (input, index) {
-                    input.innerHTML = digits[index];
+                    input.value = digits[index];
                 });
             } else {
                 lotteryNumberInputs.forEach(function (input) {
@@ -185,7 +224,12 @@
             <br>
             <br>
             <div class="container" id="container">
-                <ul class="balls big">
+                <input class="lottery-number-input" id="f1" type="text" readonly>
+                <input class="lottery-number-input" type="text" readonly>
+                <input class="lottery-number-input" type="text" readonly>
+                <input class="lottery-number-input" type="text" readonly>
+            </div>
+            <!-- <ul class="balls big">
                     <li class="ball" id="B1">
                         <span class="innerA">
                             <span class="innerB">
@@ -210,9 +254,8 @@
                             </span>
                         </span>
                     </li>
-                </ul>
-            </div>
-            <input type="button" value="click" onclick="lottery()" name="generate_numbers" class="btn btn-block">
+                </ul> -->
+            <!-- <input type="button" value="click" onclick="lottery()" name="generate_numbers" class="btn btn-block"> -->
         </div>
         <button onclick="login('Manage')">הגדרות</button>
     </div>
