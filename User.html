@@ -10,6 +10,9 @@
     <link href="styleSheets/UserStyleSheet.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/shared.js"></script>
+    <link rel="stylesheet" type="text/css" href="StyleSheets/lottery.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-1.12.4.min.js"></script>
 
     <script>
         var manageConfig = ""
@@ -129,7 +132,6 @@
             document.getElementById("container").style.display = "flex";
             displaySelectedGift()
         }
-
     </script>
     <div class="background" id="background" style="background-image:url('resources/userBackground.gif');">
         <div class="text">
@@ -151,9 +153,61 @@
                 <input class="lottery-number-input" type="text" readonly>
                 <input class="lottery-number-input" type="text" readonly>
             </div>
+            <input type="button" value="click" onclick="lottery()" name="generate_numbers" class="btn btn-block">
+
+            <div class="generic-box generator numbers-generator">
+                <div id="generatorResults" class="col-md-8 offset-md-2">
+                    <ul class="balls big">
+                        <li class="ball" id="B1">
+                            <span class="innerA">
+                                <span class="innerB">
+
+                                </span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <button onclick="login('Manage')">הגדרות</button>
     </div>
+    <script>
+        function lottery() {
+            var numbers = new Array;
+            for (let i = 1; i <= 9; i++) {
+                numbers.push(i);
+                numbers.push(i);
+            }
+            generate(numbers)
+       }
+
+
+        function generate(numbers) {
+            $(".innerB").html("?");
+            createNums($("#B" + 1 + " .innerB"), 1, numbers)
+            moveNums($("#B" + 1 + " .innerB"), 1, numbers)
+        };
+
+        function createNums(obj, idNum, numbers) {
+            for (var i = 0; i < numbers.length * 2; i++) {
+                var chosen = Math.floor(Math.random() * numbers.length);
+                obj.append('<div class="number" id="ID_' + idNum + '-' + i + '">' + numbers[chosen] + '</div>')
+            }
+        }
+
+        function moveNums(obj, idNum) {
+            var time = 9000;
+            // time += Math.round(Math.random() * 1000);
+            obj.stop(!0, !0);
+            obj.css('margin-top', '-2080px');
+            obj.animate({
+                "margin-top": "-1040px"
+            }, {
+                'duration': time,
+                'easing': 'swing'
+            })
+        };
+    </script>
 </body>
 
 </html>

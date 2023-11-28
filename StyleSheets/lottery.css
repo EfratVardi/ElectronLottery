@@ -1,0 +1,147 @@
+/* BALL STYLES */
+.balls {
+    margin-bottom: 40px;
+}
+
+.balls .ball,
+.balls .bonus,
+.ball:last-child {
+    border-radius: 65px;
+    box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.5) inset;
+    -webkikt-box-shadow: 0 -10px 25px 0 rgba(0, 0, 0, 0.5) inset;
+    display: inline-block;
+    font: 1.125em/40px Oswald, sans-serif;
+    height: 40px;
+    letter-spacing: -1px;
+    position: relative;
+    text-align: center;
+    top: 0;
+    width: 40px;
+    background: url(/loto/img/icon-sprite.png) no-repeat 54.466% 0;
+    background-size: 500px 1500px;
+    padding: 0;
+    margin-bottom: 0;
+    color: #fff;
+}
+
+.balls li:before,
+.ball:last-child:before {
+    background: none;
+}
+
+.balls .ball:after,
+.balls .bonus:after {
+    content: "";
+    display: block;
+    height: 11px;
+    position: absolute;
+    bottom: -4px;
+    width: 40px;
+    background: url(/loto/img/icon-sprite.png) no-repeat 54.526% 6.68%;
+    background-size: 500px 1500px;
+}
+
+.balls .bonus.extra {
+    background-position: 54.466% 3.425%;
+    color: #293444;
+}
+
+.balls .bonus:before,
+.ball:last-child:before {
+    width: 40px;
+    height: 20px;
+    font: 11px/18px Oswald;
+    color: #293444;
+    letter-spacing: 0;
+    text-shadow: none;
+    top: 42px;
+    line-height: 12px;
+}
+
+.balls.big .bonus:before {
+    top: 56px;
+    width: 50px;
+}
+
+.balls.big .ball,
+.balls.big .bonus {
+    background-size: 650px 1950px;
+    height: 52px;
+    width: 52px;
+    font-size: 1.500em;
+    line-height: 54px;
+    box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.3) inset;
+    -webkikt-box-shadow: 0 -10px 25px 0 rgba(0, 0, 0, 0.3) inset;
+}
+
+.balls.big .ball:after,
+.balls.big .bonus:after {
+    background-size: 650px 1950px;
+    height: 17px;
+    bottom: -8px;
+    left: 0px;
+    width: 50px;
+}
+
+/* NUMBERS GENERATOR */
+.numbers-generator .balls .ball {
+    background-color: #0b4cd7;
+}
+
+.numbers-generator .balls .bonus.extra {
+    background-color: #ffdc00;
+    color: #293444;
+}
+
+.numbers-generator .balls .bonus.extra:before {
+    content: "Extra";
+}
+
+/* GENERATOR */
+.generic-box.generator {
+    padding: 30px 0 0;
+}
+
+.generator .title {
+    font-size: 1.125em;
+    color: inherit;
+    margin-left: 30px;
+}
+
+.generator .balls {
+    margin-left: 15px;
+}
+
+.generic-box {
+    padding-bottom: 15px;
+}
+
+/* ANIMATION */
+.animated {
+    visibility: hidden;
+}
+
+/* GENERATOR */
+.balls .innerA {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    line-height: 52px;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    top: 0;
+    display: block;
+    overflow: hidden;
+}
+
+.balls .innerB,
+.balls .number {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.balls .innerB {
+    display: block;
+}
