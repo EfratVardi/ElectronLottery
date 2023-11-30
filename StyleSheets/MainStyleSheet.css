@@ -15,7 +15,6 @@ html {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    z-index: -1;
     padding-top: 2.5%;
     font-family: "printFont";
     padding-bottom: 2.5%;
@@ -25,8 +24,4 @@ html {
     border-color: transparent;
     color: transparent;
     background-color: transparent;
-}
-
-.gif {
-    width: 25vw;
 }

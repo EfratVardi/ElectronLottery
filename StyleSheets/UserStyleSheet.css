@@ -17,21 +17,31 @@
   font-size: 5.5vw;
   color: #5ACBEE;
   text-shadow:
-    -1px -1px 0 rgb(33, 55, 134),
-    5px -1px 0 rgb(33, 55, 134),
-    -1px 5px 0 rgb(33, 55, 134),
-    5px 5px 0 rgb(33, 55, 134);
+    -2px -2px 0 black,
+    2px -2px 0 black,
+    -2px 2px 0 black,
+    2px 2px 0 black;
+  /* text-shadow:
+    -1px -1px 0 white,
+    1px -1px 0 white,
+    -1px 1px 0 white,
+    1px 1px 0 white; */
   font-weight: 800;
 }
 
 #line2 {
   font-size: 3.5vw;
-  color:black;
+  color: rgb(153, 85, 185);
   text-shadow:
-    -1px -1px 0 white,
-    1px -1px 0 white,
-    -1px 1px 0 white,
-    1px 1px 0 white;
+    -2px -2px 0 black,
+    2px -2px 0 black,
+    -2px 2px 0 black,
+    2px 2px 0 black;
+  /* text-shadow:
+  -1px -1px 0 white,
+  1px -1px 0 white,
+  -1px 1px 0 white,
+  1px 1px 0 white; */
 }
 
 .container {
@@ -50,4 +60,10 @@
   font-weight: 500;
   text-align: center;
   color: rgb(0, 0, 0);
+  transition: font-size 3s
+}
+
+#start {
+  display: block;
+  width: 25vw;
 }

@@ -89,17 +89,10 @@
             });
             Promise.all(promises).then(() => {
                 lotteryNumberInputs.forEach(function (input, index) {
-                    function flicker() {
-                        const colors = ["red", "blue", "green", "yellow"]; // Define an array of colors
-                        const randomColor = colors[Math.floor(Math.random() * colors.length)]; // Select a random color from the array
-                        input.style.color = randomColor; // Apply the random color to the element
-                    }
-
-                    let interval = setInterval(flicker, 200);
-                    setTimeout(() => {
-                        clearInterval(interval)
-                    }, 2000);
+                    startGrowEffect(input)
+                    resetGrowEffect(input)
                 });
+
                 //Update in TXT file
                 fileName = "manageConfig"
                 manageConfig.gifts = gifts
@@ -111,6 +104,14 @@
                 var lotteryBtn = document.querySelector("#lottery-btn");
                 lotteryBtn.textContent = "הגרלה חוזרת";
             });
+        }
+
+        function startGrowEffect(element) {
+            element.style.fontSize = "13vw"; // Increase the font size
+        }
+
+        function resetGrowEffect(element) {
+            setTimeout(() => element.style.fontSize = "10vw", 3000); // Reset after 500ms (0.5s)
         }
 
         function displayLotteryNumber(input, countNumber, lotteryNumber, resolve) {
@@ -167,95 +168,32 @@
 
         function start() {
             document.getElementById("start").style.display = "none";
-            document.getElementById("lottery").style.display = "block";
+            document.getElementById("lotteryArea").style.display = "block";
             document.getElementById("container").style.display = "flex";
+            document.getElementById("background").style.backgroundImage = 'url(resources/userBackground.gif)';
             displaySelectedGift()
         }
 
-        function lottery() {
-            var numbers = new Array;
-            for (let i = 1; i <= 20; i++) {
-                numbers.push(i);
-            }
-            generate(numbers)
-        }
-
-        function generate(numbers) {
-            for (var i = 1; i < 5; i++) {
-                createNums($("#B" + i + " .innerB"), i, numbers)
-            }
-            for (var i = 1; i < 5; i++) {
-                moveNums($("#B" + i + " .innerB"), i, numbers)
-            }
-        };
-
-        function createNums(obj, idNum, numbers) {
-            for (var i = 0; i < numbers.length * 2; i++) {
-                var chosen = Math.floor(Math.random() * numbers.length);
-                obj.append('<div class="number" id="ID_' + idNum + '-' + i + '">' + numbers[chosen] + '</div>')
-            }
-        }
-
-        function moveNums(obj, idNum) {
-            var time = 9000;
-            time += Math.round(Math.random() * 1000);
-            obj.stop(!0, !0);
-            obj.css('margin-top', '-2080px');
-            obj.animate({
-                "margin-top": "-1040px"
-            }, {
-                'duration': time,
-                'easing': 'swing'
-            })
-        };
     </script>
-    <div class="background" id="background" style="background-image:url('resources/userBackground.gif');">
+    <div class="background" id="background" style="background-image:url('resources/startBackground.gif');">
         <div class="text">
-            <div id="line1">ברוכות הבאות להגרלה</div>
-            <div id="line2"></div>
-            <div id="lottery" style="display: none;">
+            <button id="start" onclick="start()">התחלה</button>
+            <div id="lotteryArea" style="display: none;">
+                <div id="line1"></div>
+                <div id="line2"></div>
                 <select id="gifts-dropdown" onchange="displaySelectedGift()">
                 </select>
                 <button id="lottery-btn" onclick="generateLotteryNumber()">Generate Number</button>
             </div>
-            <div id="start" style="display: block;">
-                <button id="lottery-btn" onclick="start()">התחלה</button>
-            </div>
+
             <br>
             <br>
             <div class="container" id="container">
-                <input class="lottery-number-input" id="f1" type="text" readonly>
+                <input class="lottery-number-input" type="text" readonly>
                 <input class="lottery-number-input" type="text" readonly>
                 <input class="lottery-number-input" type="text" readonly>
                 <input class="lottery-number-input" type="text" readonly>
             </div>
-            <!-- <ul class="balls big">
-                    <li class="ball" id="B1">
-                        <span class="innerA">
-                            <span class="innerB">
-                            </span>
-                        </span>
-                    </li>
-                    <li class="ball" id="B2">
-                        <span class="innerA">
-                            <span class="innerB">
-                            </span>
-                        </span>
-                    </li>
-                    <li class="ball" id="B3">
-                        <span class="innerA">
-                            <span class="innerB">
-                            </span>
-                        </span>
-                    </li>
-                    <li class="ball" id="B4">
-                        <span class="innerA">
-                            <span class="innerB">
-                            </span>
-                        </span>
-                    </li>
-                </ul> -->
-            <!-- <input type="button" value="click" onclick="lottery()" name="generate_numbers" class="btn btn-block"> -->
         </div>
         <button onclick="login('Manage')">הגדרות</button>
     </div>
