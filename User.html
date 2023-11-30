@@ -169,9 +169,14 @@
         function start() {
             document.getElementById("start").style.display = "none";
             document.getElementById("lotteryArea").style.display = "block";
+            document.getElementById("lotteryArea2").style.display = "flex";
             document.getElementById("container").style.display = "flex";
             document.getElementById("background").style.backgroundImage = 'url(resources/userBackground.gif)';
             displaySelectedGift()
+        }
+
+        function music(type) {
+            document.getElementById(type).play();
         }
 
     </script>
@@ -181,22 +186,39 @@
             <div id="lotteryArea" style="display: none;">
                 <div id="line1"></div>
                 <div id="line2"></div>
-                <select id="gifts-dropdown" onchange="displaySelectedGift()">
-                </select>
-                <button id="lottery-btn" onclick="generateLotteryNumber()">Generate Number</button>
             </div>
-
+            <br>
+            <div id="container">
+                <input class="lottery-number-input" type="text" readonly>
+                <input class="lottery-number-input" type="text" readonly>
+                <input class="lottery-number-input" type="text" readonly>
+                <input class="lottery-number-input" type="text" readonly>
+            </div>
             <br>
             <br>
-            <div class="container" id="container">
-                <input class="lottery-number-input" type="text" readonly>
-                <input class="lottery-number-input" type="text" readonly>
-                <input class="lottery-number-input" type="text" readonly>
-                <input class="lottery-number-input" type="text" readonly>
+            <div id="lotteryArea2" style="display: none;">
+                <div class="circle" style="margin-right:30%;">
+                    <img onclick="login('Manage')" src="resources/settings.svg" />
+                </div>
+                <div class="circle">
+                    <img onclick="music('trumpet')" src="resources/note.svg" />
+                </div>
+                <div class="circle">
+                    <img onclick="music('clap')" src="resources/clap.png" />
+                </div>
+                <div style="margin-left: 30%;">
+                    <button id="lottery-btn" onclick="generateLotteryNumber()">הגרלה</button>
+                    <select id="gifts-dropdown" onchange="displaySelectedGift()">
+                    </select>
+                </div>
             </div>
         </div>
-        <button onclick="login('Manage')">הגדרות</button>
-    </div>
+        <audio id="clap">
+            <source src="resources/clap.mp3" type="audio/mpeg" />
+        </audio>
+        <audio id="trumpet">
+            <source src="resources/trumpet.mp3" type="audio/mpeg" />
+        </audio>
 </body>
 
 </html>

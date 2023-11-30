@@ -15,18 +15,30 @@
 }
 
 #line1 {
-    font-size: 2.5vw;
+    font-size: 3vw;
     font-weight: 400;
+    color: #F89225;
+    text-shadow:
+        -1px -1px 0 black,
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black;
 }
 
 #line2 {
-    font-size: 1vw;
+    font-size: 2vw;
     font-weight: 300;
+    color: #F89225;
+    text-shadow:
+        -1px -1px 0 black,
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black;
 }
 
 img {
     height: 5%;
-    float:right;
+    float: right;
 }
 
 .ag-theme-alpine {
@@ -34,11 +46,10 @@ img {
     padding: 1rem 1rem;
     vertical-align: middle;
     height: 85%;
-    --ag-background-opacity:0.33
+    --ag-background-opacity: 0.33
 }
 
 input:focus {
     outline: none;
     color: transparent;
 }
-
