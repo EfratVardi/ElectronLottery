@@ -1,1 +1,1 @@
-{"gifts":[{"id":0,"name":"מתנה שווה","description":"כדאי לכן לזכות בזה","lotteryNumber":"5281"},{"id":1,"name":"יותר שווה","description":"","lotteryNumber":"0070"}]}
+{"gifts":[{"id":0,"name":"מתנה שווה","description":"כדאי לכן לזכות בזה","lotteryNumber":"9089"},{"id":1,"name":"יותר שווה","description":"","lotteryNumber":"0070"}]}

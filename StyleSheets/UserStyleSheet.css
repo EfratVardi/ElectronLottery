@@ -15,7 +15,7 @@
 
 #line1 {
   font-size: 5.5vw;
-  color: #5ACBEE;
+  color: orange;
   text-shadow:
     -2px -2px 0 black,
     2px -2px 0 black,
@@ -31,7 +31,7 @@
 
 #line2 {
   font-size: 3.5vw;
-  color: rgb(153, 85, 185);
+  color: rgba(255, 166, 0, 0.792);
   text-shadow:
     -2px -2px 0 black,
     2px -2px 0 black,
