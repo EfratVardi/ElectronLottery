@@ -15,23 +15,8 @@
         var systemConfig;
         var counter = 0;
         function onLoad() {
-            fileName = 'systemConfig'
-            window.expose.SendExcel("sendReadExcel", fileName);
-            window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
-                if (data == 0) {
-                    systemConfig = getDefaultConfig()
-                }
-                else {
-                    systemConfig = JSON.parse(data)
-                }
-                if (systemConfig.color == "1") {
-                    document.getElementById("background").style.backgroundImage = "url('resources/images/pinkBackground4.gif')"
-                }
-                else if (systemConfig.color == "2") {
-                    document.getElementById("background").style.backgroundImage = "url('resources/images/greenBackground4.gif')";
-                }
-            })
         }
+
         document.addEventListener("keypress", function (e) {
             if (e.target.tagName !== "INPUT") {
                 var input = document.querySelector(".my-input");
@@ -43,17 +28,13 @@
             if (counter > 9) {
                 if (document.getElementById('barcode').value == '011429519')
                     login("System")
-                if (document.getElementById('barcode').value == '999999999')
-                    login("Manage")
             }
         });
-        function login(page) {
-            counter = 0;
-            window.location.href = page + '.html';
-        }
     </script>
     <div class="background" id="background">
         <div class="text">
+            <br>
+            <br>
             <div id="line1">...מצטערים</div>
             <div id="line2">!פג תוקף הרשיון</div>
             <input type="text" class="my-input" id="barcode">

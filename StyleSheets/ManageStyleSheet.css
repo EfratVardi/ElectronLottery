@@ -16,8 +16,17 @@
     vertical-align: middle;
     height: 80%;
     opacity: 0.5;
+    direction: rtl;
+    width:80%
 }
 
 .circle {
     padding: 2px;
+}
+
+.remove {
+    padding: 2px;
+    height: 70%;
+    opacity: 0.3;
+
 }

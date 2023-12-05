@@ -18,9 +18,12 @@
 }
 
 #container {
-  display: none;
   width: 80%;
   margin-left: 12.5%;
+}
+
+#content {
+ display: none;
 }
 
 .lottery-number-input {
