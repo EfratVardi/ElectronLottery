@@ -1,54 +1,3 @@
-.text {
-  position: absolute;
-  left: 2.5%;
-  top: 15%;
-  bottom: 10%;
-  width: 95%;
-  text-align: center;
-  margin-right: auto;
-  margin-left: auto;
-  font-style: normal;
-  font-variant: normal;
-  line-height: 4.5vw;
-  color: white;
-}
-
-#line1 {
-  font-size: 4vw;
-  color: white;
-  font-weight: 800;
-  text-shadow:
-    0 0 10px #ff00de,
-    0 0 5px #ff00de,
-    0 0 10px #ff00de,
-    0 0 5px #ff00de,
-    0 0 10px #ff00de,
-    0 0 5px #ff00de,
-    0 0 10px #ff00de,
-    0 0 5px #ff00de,
-    0 0 10px #ff00de;
-  /* color: #5ACBEE; */
-  /* text-shadow:
-    -2px -2px 0 black,
-    2px -2px 0 black,
-    -2px 2px 0 black,
-    2px 2px 0 black; */
-  /* text-shadow:
-    -1px -1px 0 black,
-    1px -1px 0 black,
-    -1px 1px 0 black,
-    1px 1px 0 black; */
-  /* text-shadow:
-    0 0 5px #e028e5,
-    0 0 10px #e028e5,
-    0 0 5px #e028e5,
-    0 0 10px #e028e5,
-    0 0 5px #e028e5,
-    0 0 10px #e028e5,
-    0 0 5px #e028e5,
-    0 0 10px #e028e5; */
-}
-
 .neon-text {
   font-size: 2vw;
   color: white;
@@ -66,22 +15,6 @@
     0 0 80px #ff00de,
     0 0 100px #ff00de,
     0 0 150px #ff00de;
-}
-
-#line2 {
-  font-size: 2vw;
-  color: #ff00de;
-  /* text-shadow:
-    -1px -1px 0 black,
-    1px -1px 0 black,
-    -1px 1px 0 black,
-    1px 1px 0 black; */
-  /* font-weight: 800; */
-  /* text-shadow:
-  -1px -1px 0 white,
-  1px -1px 0 white,
-  -1px 1px 0 white,
-  1px 1px 0 white; */
 }
 
 #container {
@@ -116,33 +49,49 @@
     0 0 10px #00ffff;
 }
 
-#start {
-  display: block;
-  width: 25vw;
-}
-
 .circle {
-  background-color: white;
-  opacity: 0.3;
-  border-radius: 50%;
   padding: 7px;
-  height: 100%;
 }
 
-.elipse {
-  background-color: white;
-  opacity: 0.3;
-  border-radius: 11px;
-  line-height: normal;
-  height: 100%;
-  border: none;
+@keyframes flicker {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
-.elipse:focus {
-  outline: none;
+.flicker-button {
+  animation: flicker 1s infinite;
 }
 
-.menue {
-  display: flex;
-  height: 40px;
+.neon {
+  box-shadow:
+    0 0 10px #00ffff,
+    0 0 5px #00ffff,
+    0 0 10px #00ffff,
+    0 0 5px #00ffff,
+    0 0 10px #00ffff,
+    0 0 5px #00ffff,
+    0 0 10px #00ffff,
+    0 0 5px #00ffff,
+    0 0 10px #00ffff;
+  /* 0 0 10px #ff00de,
+    0 0 5px #ff00de,
+    0 0 10px #ff00de,
+    0 0 5px #ff00de,
+    0 0 10px #ff00de,
+    0 0 5px #ff00de,
+    0 0 10px #ff00de,
+    0 0 5px #ff00de,
+    0 0 10px #ff00de; */
+  width: 30%;
+  height: 60px;
+  border-radius: 20px;
 }

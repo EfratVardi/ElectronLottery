@@ -7,7 +7,7 @@
 </head>
 
 <body onload="onLoad()">
-    <link href="styleSheets/MainStyleSheet.css" rel="stylesheet" />
+    <link href="styleSheets/SharedStyleSheet.css" rel="stylesheet" />
     <link href="styleSheets/ManageStyleSheet.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/ag-grid-community.min.js"></script>
@@ -18,6 +18,7 @@
         var manageConfig = ""
         var gridOptions
         var counter = 0;
+        var gridDiv
 
         function onLoad() {
             fileName = 'manageConfig'
@@ -30,12 +31,17 @@
                             { headerName: "שם", field: "name", editable: true },
                             { headerName: "תיאור", field: "description", editable: true },
                             { headerName: "מספר זוכה", field: "lotteryNumber" },
+                            {
+                                field: "delete", icons: {
+                                },
+                            },
+
                         ],
                         rowData: manageConfig.gifts,
                         onFirstDataRendered: onFirstDataRendered,
                         onCellEditingStopped: onCellEditingStopped
                     };
-                    var gridDiv = document.querySelector('#giftsGrid');
+                    gridDiv = document.querySelector('#giftsGrid');
                     new agGrid.Grid(gridDiv, gridOptions);
                 }
             })
@@ -62,7 +68,7 @@
         }
 
         function New() {
-            var id = 0
+            var id = 1
             if (manageConfig.gifts.length > 0) {
                 id = manageConfig.gifts[manageConfig.gifts.length - 1].id + 1
             }
@@ -92,20 +98,37 @@
             };
             gridOptions.api.exportDataAsCsv(params);
         }
+
+        function deleteRow() {
+            const selectedRows = gridDiv.getSelectedRows(); // Assuming you want to delete the selected row(s)
+
+            if (selectedRows.length === 0) {
+                alert("Please select a row to delete.");
+                return;
+            }
+
+            gridOptions.api.updateRowData({ remove: selectedRows });
+        }
     </script>
     <div class="background" id="background">
         <div class="text">
             <div id="line1">ברוכה הבאה לממשק ניהול</div>
             <div id="line2">כאן אפשר להוסיף משימות ולהוריד את הנתונים</div>
-            <br>
+            <!-- <button onclick="deleteRow()">Delete Row</button> -->
+
             <div style="height: 30px; width: 30%; float:right">
-                <img class="circle" onclick="expose.appClose()" src="resources/icons/close.svg" />
+                <!-- <img class="circle" onclick="expose.appClose()" src="resources/icons/close.svg" /> -->
                 <img class="circle" onclick="Export('רשימת הזוכים')" src="resources/icons/arrow-down.svg" />
                 <img class="circle" onclick="New()" src="resources/icons/add.svg" />
             </div>
             <div id="giftsGrid" style="width:80%" class="ag-theme-alpine"></div>
+            <div class="menue">
+                <div style="width: 50%; text-align: left;">
+                    <img class="circle" onclick="login('User')" src="resources/icons/sparkles-outline.svg"
+                        style="padding: 7px;" />
+                </div>
+            </div>
         </div>
-        <button onclick="login('User')">הגרלה</button>
         <input type="text" class="my-input" id="code">
     </div>
 </body>

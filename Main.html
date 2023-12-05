@@ -7,6 +7,7 @@
 
 <body onload="onLoad()">
     <link href="styleSheets/MainStyleSheet.css" rel="stylesheet" />
+    <link href="styleSheets/SharedStyleSheet.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/shared.js"></script>
     <script src="js/aes.js"></script>
@@ -41,7 +42,7 @@
                     window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(password)]);
                     window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
                         fileName = "manageConfig"
-                        window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify({"gifts":[]})]);
+                        window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify({ "gifts": [] })]);
                         window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
                             login("User")
                         });
@@ -65,11 +66,9 @@
     </script>
     <div class="background" id="background">
         <div class="text">
-            <div> הכניסי את הסיסמא </div>
-            <input type="text" id="password">
-            <div id="check">
-                <button id="lottery-btn" onclick="check()">אישור</button>
-            </div>
+            <div id="line2">הכניסי את הסיסמא</div>
+            <img class="circle" id="lottery-btn" onclick="check()" src="resources/icons/checkmark-outline.svg" />
+            <input type="text" id="password" class="elipse">
         </div>
     </div>
 </body>

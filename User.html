@@ -6,11 +6,10 @@
 </head>
 
 <body onload="onLoad()">
-    <link href="styleSheets/MainStyleSheet.css" rel="stylesheet" />
+    <link href="styleSheets/SharedStyleSheet.css" rel="stylesheet" />
     <link href="styleSheets/UserStyleSheet.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/shared.js"></script>
-    <link rel="stylesheet" type="text/css" href="StyleSheets/lottery.css">
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-1.12.4.min.js"></script>
 
@@ -170,7 +169,7 @@
 
         function start() {
             document.getElementById("start").style.display = "none";
-            document.getElementById("text").style.display = "block";
+            document.getElementById("content").style.display = "block";
             document.getElementById("container").style.display = "flex";
             displaySelectedGift()
         }
@@ -181,36 +180,40 @@
 
     </script>
     <div class="background" id="background">
-        <button id="start" onclick="start()">התחלה</button>
-        <div class="text" id="text" style="display: none;">
-            <div id="line1"></div>
-            <div id="line2"></div>
-            <br>
-            <div id="container">
-                <input class="lottery-number-input" readonly>
-                <input class="lottery-number-input" readonly>
-                <input class="lottery-number-input" readonly>
-                <input class="lottery-number-input" readonly>
+        <div class="text">
+            <div id="line1">ברוכות הבאות להגרלה</div>
+            <div id="line2">...מתחילים עוד מעט</div>
+            <div id="start">
+                <br>
+                <br>
+                <button class="elipse flicker-button neon" onclick="start()">!...מתחילים</button>
             </div>
             <br>
-            <br>
-            <div class="menue">
-                <div style="width: 33%; text-align: left;">
-                    <img class="circle" onclick="login('Manage')" src="resources/icons/settings-outline.svg" />
+            <div id="content" style="display: none;">
+                <div id="container">
+                    <input class="lottery-number-input" readonly>
+                    <input class="lottery-number-input" readonly>
+                    <input class="lottery-number-input" readonly>
+                    <input class="lottery-number-input" readonly>
                 </div>
-                <div style="width: 33%; text-align: center;">
-                    <img class="circle" id="next" onclick="next()" src="resources/icons/arrow-back.svg" />
-                    <button class="elipse" id="lottery-btn"
-                        onclick="generateLotteryNumber()">הגרלה</button>
-                    <img class="circle" id="prev" onclick="prev()" src="resources/icons/arrow-forward.svg"
-                        style="pointer-events: none;" />
+                <br>
+                <br>
+                <div class="menue">
+                    <div style="width: 33%; text-align: left;">
+                        <img class="circle" onclick="login('Manage')" src="resources/icons/settings-outline.svg" />
+                    </div>
+                    <div style="width: 33%; text-align: center;">
+                        <img class="circle" id="next" onclick="next()" src="resources/icons/arrow-back.svg" />
+                        <button class="elipse" id="lottery-btn" onclick="generateLotteryNumber()">הגרלה</button>
+                        <img class="circle" id="prev" onclick="prev()" src="resources/icons/arrow-forward.svg"
+                            style="pointer-events: none;" />
+                    </div>
+                    <div style="width: 33%; text-align: right;">
+                        <img class="circle" onclick="music('clap')" src="resources/icons/musical-notes-outline.svg" />
+                        <img class="circle" onclick="music('trumpet')" src="resources/icons/megaphone-outline.svg" />
+                        <img class="circle" onclick="music('clap')" src="resources/icons/musical-notes-outline.svg" />
+                    </div>
                 </div>
-                <div style="width: 33%; text-align: right;">
-                    <img class="circle" onclick="music('clap')" src="resources/icons/musical-notes-outline.svg" />
-                    <img class="circle" onclick="music('trumpet')" src="resources/icons/megaphone-outline.svg" />
-                    <img class="circle" onclick="music('clap')" src="resources/icons/musical-notes-outline.svg" />
-                </div>
-
             </div>
         </div>
 

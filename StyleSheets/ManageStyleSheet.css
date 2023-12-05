@@ -1,53 +1,23 @@
 ﻿.text {
-    position: absolute;
-    left: 10%;
-    right: 10%;
-    top: 10%;
-    bottom: 10%;
-    width: 80%;
-    text-align: center;
-    margin-right: auto;
-    margin-left: auto;
-    font-style: normal;
-    font-variant: normal;
-    line-height: 2vw;
-    color: white;
+    line-height: 2.5vw;
 }
 
 #line1 {
-    font-size: 3vw;
-    font-weight: 400;
-    color: #F89225;
-    text-shadow:
-        -1px -1px 0 black,
-        1px -1px 0 black,
-        -1px 1px 0 black,
-        1px 1px 0 black;
+    font-size: 2.5vw;
 }
 
 #line2 {
-    font-size: 2vw;
-    font-weight: 300;
-    color: #F89225;
-    text-shadow:
-        -1px -1px 0 black,
-        1px -1px 0 black,
-        -1px 1px 0 black,
-        1px 1px 0 black;
+    font-size: 1vw;
 }
 
 .ag-theme-alpine {
     display: inline-block;
     padding: 1rem 1rem;
     vertical-align: middle;
-    height: 85%;
+    height: 80%;
     opacity: 0.5;
 }
 
 .circle {
-    background-color: white;
-    opacity: 0.3;
-    border-radius: 50%;
     padding: 2px;
-    height: 100%;
-  }
+}
