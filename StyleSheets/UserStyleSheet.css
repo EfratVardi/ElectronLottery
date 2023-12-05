@@ -4,26 +4,13 @@
   font-weight: 800;
 }
 
-.neon-text::after {
-  content: attr(data-text);
-  color: #ff00de;
-  text-shadow: 0 0 10px #ff00de,
-    0 0 20px #ff00de,
-    0 0 30px #ff00de,
-    0 0 40px #ff00de,
-    0 0 70px #ff00de,
-    0 0 80px #ff00de,
-    0 0 100px #ff00de,
-    0 0 150px #ff00de;
-}
-
 #container {
   width: 80%;
   margin-left: 12.5%;
 }
 
 #content {
- display: none;
+  display: none;
 }
 
 .lottery-number-input {
@@ -75,6 +62,9 @@
 }
 
 .neon {
+  background-color: transparent;
+  color: #00ffff;
+  font-size: 2vw;
   box-shadow:
     0 0 10px #00ffff,
     0 0 5px #00ffff,
@@ -85,16 +75,7 @@
     0 0 10px #00ffff,
     0 0 5px #00ffff,
     0 0 10px #00ffff;
-  /* 0 0 10px #ff00de,
-    0 0 5px #ff00de,
-    0 0 10px #ff00de,
-    0 0 5px #ff00de,
-    0 0 10px #ff00de,
-    0 0 5px #ff00de,
-    0 0 10px #ff00de,
-    0 0 5px #ff00de,
-    0 0 10px #ff00de; */
-  width: 30%;
-  height: 60px;
+  width: 50%;
+  height: 70px;
   border-radius: 20px;
 }

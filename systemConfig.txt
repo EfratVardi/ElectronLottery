@@ -1,1 +1,1 @@
-{"date":"2023-12-04","name":"אהבת חסד","min":"20","max":"100","password":"U2FsdGVkX1/wutTon6IPFgNQRYasY0r5tdlD4QzaGhXMtWHfnQKPvWtR4sFr+xGoel1HkM7MlL7AGidGgsT+Umhi17ZLGbNvhnLtOgjAd53K3uUjj6EHvGMZVKdK9ZOf4hhn5pGNaL4IbPZ3w4U0LA=="}
+{"date":"2023-12-08","name":"אהבת חסד","min":20,"max":100,"password":"U2FsdGVkX1/wutTon6IPFgNQRYasY0r5tdlD4QzaGhXMtWHfnQKPvWtR4sFr+xGoel1HkM7MlL7AGidGgsT+Umhi17ZLGbNvhnLtOgjAd53K3uUjj6EHvGMZVKdK9ZOf4hhn5pGNaL4IbPZ3w4U0LA=="}

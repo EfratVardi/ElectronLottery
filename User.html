@@ -80,6 +80,7 @@
             });
             Promise.all(promises).then(() => {
                 lotteryNumberInputs.forEach(function (input, index) {
+                    music('win')
                     startGrowEffect(input)
                     resetGrowEffect(input)
                 });
@@ -169,9 +170,17 @@
 
         function start() {
             document.getElementById("start").style.display = "none";
+            document.getElementById("space").style.display = "none";
             document.getElementById("content").style.display = "block";
             document.getElementById("container").style.display = "flex";
-            displaySelectedGift()
+            document.getElementById("background").style.backgroundImage = 'url(resources/images/userBackground.gif)';
+            if (manageConfig.gifts.length == 0) {
+                document.getElementById("line1").innerHTML = "אין נתונים";
+                document.getElementById("line2").innerHTML = "הוסיפי מתנות בממשק הניהול";
+            }
+            else {
+                displaySelectedGift()
+            }
         }
 
         function music(type) {
@@ -179,7 +188,14 @@
         }
     </script>
     <div class="background" id="background">
+        <div class="close1" style="height: 40px; text-align: left;">
+            <img class="circle" onclick="expose.appClose()" src="resources/icons/close.svg" />
+        </div>
         <div class="text">
+            <div id="space">
+                <br>
+                <br>
+            </div>
             <div id="line1">ברוכות הבאות להגרלה</div>
             <div id="line2">...מתחילים עוד מעט</div>
             <div id="start">
@@ -188,6 +204,7 @@
                 <button class="elipse flicker-button neon" onclick="start()">!...מתחילים</button>
             </div>
             <br>
+            <br>
             <div id="content">
                 <div id="container">
                     <input class="lottery-number-input" readonly>
@@ -195,6 +212,7 @@
                     <input class="lottery-number-input" readonly>
                     <input class="lottery-number-input" readonly>
                 </div>
+                <br>
                 <br>
                 <br>
                 <div class="menue">
@@ -224,6 +242,9 @@
         </audio>
         <audio id="lottery">
             <source src="resources/music/lottery.m4a" type="audio/mpeg" />
+        </audio>
+        <audio id="win">
+            <source src="resources/music/win.mp3" type="audio/mpeg" />
         </audio>
 </body>
 

@@ -17,8 +17,8 @@ function createWindow() {
     }
   })
   mainWindow.loadFile('Main.html')
-  // mainWindow.menuBarVisible = false
-  // mainWindow.fullScreen = true;
+  mainWindow.menuBarVisible = false
+  mainWindow.fullScreen = true;
   // mainWindow.webContents.openDevTools();
   mainWindow.on('closed', () => {
     mainWindow = null

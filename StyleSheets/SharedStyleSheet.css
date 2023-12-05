@@ -23,7 +23,7 @@ html {
     padding-top: 2.5%;
     font-family: "lineFont";
     padding-bottom: 2.5%;
-    background-image: url('../resources/images/userBackground.png');
+    background-image: url('../resources/images/background.gif');
 }
 
 .text {
@@ -37,29 +37,29 @@ html {
     margin-left: auto;
     font-style: normal;
     font-variant: normal;
-    line-height: 4.5vw;
+    line-height: 4vw;
     color: white;
 }
 
 #line1 {
-    font-size: 4vw;
-    color: white;
+    font-size: 5vw;
+    color: #fcbdf9;
     font-weight: 800;
     text-shadow:
-        0 0 10px #ff00de,
-        0 0 5px #ff00de,
-        0 0 10px #ff00de,
-        0 0 5px #ff00de,
-        0 0 10px #ff00de,
-        0 0 5px #ff00de,
-        0 0 10px #ff00de,
-        0 0 5px #ff00de,
-        0 0 10px #ff00de;
+        0 0 10px #e028e5,
+        0 0 5px #e028e5,
+        0 0 10px #e028e5,
+        0 0 5px #e028e5,
+        0 0 10px #e028e5,
+        0 0 5px #e028e5,
+        0 0 10px #e028e5,
+        0 0 5px #e028e5,
+        0 0 10px #e028e5;
 }
 
 #line2 {
-    font-size: 2vw;
-    color: #ff00de;
+    font-size: 3vw;
+    color: #e028e5;
 }
 
 .my-input {
@@ -95,4 +95,9 @@ input:focus {
 .menue {
     display: flex;
     height: 40px;
+}
+
+.close1 {
+    margin-left: 2.5%;
+    width: 95%;
 }

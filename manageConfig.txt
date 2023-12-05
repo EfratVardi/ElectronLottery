@@ -1,1 +1,1 @@
-{"gifts":[{"id":1,"name":"","description":"","lotteryNumber":null},{"id":2,"name":"","description":"","lotteryNumber":null}]}
+{"gifts":[]}
