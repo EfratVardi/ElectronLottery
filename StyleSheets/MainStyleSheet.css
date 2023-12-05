@@ -1,7 +1,12 @@
 ﻿@font-face {
-    font-family: "printFont";
-    src: url("../fonts/FbMagnolia-Regular.otf");
+    font-family: "lineFont";
+    src: url("../resources/fonts/Miri\ Medium.ttf");
 }
+
+@font-face {
+    font-family: "regularFont";
+    src: url("../resources/fonts/FbMagnolia-Regular.otf");
+  }
 
 body,
 html {
@@ -16,8 +21,9 @@ html {
     background-repeat: no-repeat;
     background-size: cover;
     padding-top: 2.5%;
-    font-family: "printFont";
+    font-family: "lineFont";
     padding-bottom: 2.5%;
+    background-image: url('../resources/images/userBackground.png');
 }
 
 .my-input {
@@ -25,3 +31,7 @@ html {
     color: transparent;
     background-color: transparent;
 }
+
+input:focus {
+    outline: none;
+  }

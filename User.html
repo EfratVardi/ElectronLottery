@@ -19,6 +19,7 @@
         var gifts
         var systemConfig = ""
         var currentDate = getTodayDate();
+        var selectedIndex = 1;
 
         function onLoad() {
             fileName = 'systemConfig'
@@ -34,15 +35,6 @@
                     window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
                         manageConfig = JSON.parse(data)
                         gifts = manageConfig.gifts;
-                        // Populate the gifts dropdown
-                        var giftsDropdown = document.querySelector("#gifts-dropdown");
-
-                        gifts.forEach(function (gift) {
-                            var option = document.createElement("option");
-                            option.value = gift.id;
-                            option.textContent = gift.name;
-                            giftsDropdown.appendChild(option);
-                        });
                     })
                 }
             })
@@ -53,10 +45,9 @@
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
-        // Define a function to generate a random lottery number with 5 digits between min and max
+        // Define a function to generate a random lottery number with 4 digits between min and max
         function generateLotteryNumber() {
-            var selectedGiftIndex = document.querySelector("#gifts-dropdown").value;
-            var selectedGift = gifts.find(x => x.id == selectedGiftIndex)
+            var selectedGift = gifts.find(x => x.id == selectedIndex)
             var min = parseInt(systemConfig.min);
             var max = parseInt(systemConfig.max);
             var canGenerateAgain = false;
@@ -75,12 +66,13 @@
 
             // Update the lottery number of the current gift
             selectedGift.lotteryNumber = lotteryNumber;
-            gifts.find(x => x.id == selectedGiftIndex).lotteryNumber = lotteryNumber
+            gifts.find(x => x.id == selectedIndex).lotteryNumber = lotteryNumber
 
             // Display the generated lottery number on the page
             const promises = [];
 
             var digits = lotteryNumber.toString().split("");
+            music('lottery')
             lotteryNumberInputs.forEach(function (input, index) {
                 const promise = new Promise((resolve) => {
                     displayLotteryNumber(input, 20 * index + 20, digits[index], resolve);
@@ -134,44 +126,52 @@
             // Start updating the value every 1 second
             let intervalId = setInterval(myInterval, 50);
         }
+        function prev() {
+            selectedIndex--;
+            if (selectedIndex == 1)
+                document.getElementById('prev').style = 'pointer-events:none;';
+            document.getElementById('next').style = 'pointer-events:auto;';
+            displaySelectedGift()
+        }
+
+        function next() {
+            selectedIndex++;
+            if (selectedIndex == gifts.length)
+                document.getElementById('next').style = 'pointer-events:none;';
+            document.getElementById('prev').style = 'pointer-events:auto;';
+            displaySelectedGift()
+        }
 
         // Define a function to display the selected gift
         function displaySelectedGift() {
             var name = document.querySelector("#line1");
             var description = document.querySelector("#line2");
-            var selectedIndex = document.querySelector("#gifts-dropdown").value;
             var selectedGift = gifts.find(x => x.id == selectedIndex)
             document.getElementById("line1").innerHTML = selectedGift.name;
             document.getElementById("line2").innerHTML = selectedGift.description;
 
             // Display the lottery number if the gift has already been won
+            var lotteryBtn = document.querySelector("#lottery-btn");
             var lotteryNumberInputs = document.querySelectorAll(".lottery-number-input");
-            if (selectedGift.lotteryNumber !== null) {
+            if (selectedGift.lotteryNumber != null) {
                 var digits = selectedGift.lotteryNumber.toString().split("");
                 lotteryNumberInputs.forEach(function (input, index) {
                     input.value = digits[index];
                 });
-            } else {
-                lotteryNumberInputs.forEach(function (input) {
-                    input.innerHTML = "";
-                });
-            }
-
-            // Change the button text to "Lottery Again" if the selected gift has already been won
-            var lotteryBtn = document.querySelector("#lottery-btn");
-            if (selectedGift.lotteryNumber !== null) {
                 lotteryBtn.textContent = "הגרלה חוזרת";
-            } else {
+            }
+            else {
+                lotteryNumberInputs.forEach(function (input) {
+                    input.value = "";
+                });
                 lotteryBtn.textContent = "הגרלה";
             }
         }
 
         function start() {
             document.getElementById("start").style.display = "none";
-            document.getElementById("lotteryArea").style.display = "block";
-            document.getElementById("lotteryArea2").style.display = "flex";
+            document.getElementById("text").style.display = "block";
             document.getElementById("container").style.display = "flex";
-            document.getElementById("background").style.backgroundImage = 'url(resources/userBackground.gif)';
             displaySelectedGift()
         }
 
@@ -180,44 +180,48 @@
         }
 
     </script>
-    <div class="background" id="background" style="background-image:url('resources/startBackground.gif');">
-        <div class="text">
-            <button id="start" onclick="start()">התחלה</button>
-            <div id="lotteryArea" style="display: none;">
-                <div id="line1"></div>
-                <div id="line2"></div>
-            </div>
+    <div class="background" id="background">
+        <button id="start" onclick="start()">התחלה</button>
+        <div class="text" id="text" style="display: none;">
+            <div id="line1"></div>
+            <div id="line2"></div>
             <br>
             <div id="container">
-                <input class="lottery-number-input" type="text" readonly>
-                <input class="lottery-number-input" type="text" readonly>
-                <input class="lottery-number-input" type="text" readonly>
-                <input class="lottery-number-input" type="text" readonly>
+                <input class="lottery-number-input" readonly>
+                <input class="lottery-number-input" readonly>
+                <input class="lottery-number-input" readonly>
+                <input class="lottery-number-input" readonly>
             </div>
             <br>
             <br>
-            <div id="lotteryArea2" style="display: none;">
-                <div class="circle" style="margin-right:30%;">
-                    <img onclick="login('Manage')" src="resources/settings.svg" />
+            <div class="menue">
+                <div style="width: 33%; text-align: left;">
+                    <img class="circle" onclick="login('Manage')" src="resources/icons/settings-outline.svg" />
                 </div>
-                <div class="circle">
-                    <img onclick="music('trumpet')" src="resources/note.svg" />
+                <div style="width: 33%; text-align: center;">
+                    <img class="circle" id="next" onclick="next()" src="resources/icons/arrow-back.svg" />
+                    <button class="elipse" id="lottery-btn"
+                        onclick="generateLotteryNumber()">הגרלה</button>
+                    <img class="circle" id="prev" onclick="prev()" src="resources/icons/arrow-forward.svg"
+                        style="pointer-events: none;" />
                 </div>
-                <div class="circle">
-                    <img onclick="music('clap')" src="resources/clap.png" />
+                <div style="width: 33%; text-align: right;">
+                    <img class="circle" onclick="music('clap')" src="resources/icons/musical-notes-outline.svg" />
+                    <img class="circle" onclick="music('trumpet')" src="resources/icons/megaphone-outline.svg" />
+                    <img class="circle" onclick="music('clap')" src="resources/icons/musical-notes-outline.svg" />
                 </div>
-                <div style="margin-left: 30%;">
-                    <button id="lottery-btn" onclick="generateLotteryNumber()">הגרלה</button>
-                    <select id="gifts-dropdown" onchange="displaySelectedGift()">
-                    </select>
-                </div>
+
             </div>
         </div>
+
         <audio id="clap">
-            <source src="resources/clap.mp3" type="audio/mpeg" />
+            <source src="resources/music/clap.mp3" type="audio/mpeg" />
         </audio>
         <audio id="trumpet">
-            <source src="resources/trumpet.mp3" type="audio/mpeg" />
+            <source src="resources/music/trumpet.mp3" type="audio/mpeg" />
+        </audio>
+        <audio id="lottery">
+            <source src="resources/music/lottery.m4a" type="audio/mpeg" />
         </audio>
 </body>
 

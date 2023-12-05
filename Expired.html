@@ -9,7 +9,6 @@
 <body onload="onLoad()">
     <link href="StyleSheets/MainStyleSheet.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link href="StyleSheets/UserStyleSheet.css" rel="stylesheet" />
     <script src="js/shared.js"></script>
 
     <script>
@@ -26,10 +25,10 @@
                     systemConfig = JSON.parse(data)
                 }
                 if (systemConfig.color == "1") {
-                    document.getElementById("background").style.backgroundImage = "url('resources/pinkBackground4.gif')"
+                    document.getElementById("background").style.backgroundImage = "url('resources/images/pinkBackground4.gif')"
                 }
                 else if (systemConfig.color == "2") {
-                    document.getElementById("background").style.backgroundImage = "url('resources/greenBackground4.gif')";
+                    document.getElementById("background").style.backgroundImage = "url('resources/images/greenBackground4.gif')";
                 }
             })
         }

@@ -36,20 +36,18 @@
         1px 1px 0 black;
 }
 
-img {
-    height: 5%;
-    float: right;
-}
-
 .ag-theme-alpine {
     display: inline-block;
     padding: 1rem 1rem;
     vertical-align: middle;
     height: 85%;
-    --ag-background-opacity: 0.33
+    opacity: 0.5;
 }
 
-input:focus {
-    outline: none;
-    color: transparent;
-}
+.circle {
+    background-color: white;
+    opacity: 0.3;
+    border-radius: 50%;
+    padding: 2px;
+    height: 100%;
+  }
