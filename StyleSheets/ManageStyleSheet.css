@@ -17,16 +17,29 @@
     height: 80%;
     opacity: 0.5;
     direction: rtl;
-    width:80%
-}
-
-.circle {
-    padding: 2px;
+    width: 80%
 }
 
 .remove {
     padding: 2px;
     height: 70%;
     opacity: 0.3;
+}
 
+.updated-image.updated {
+    animation: pulse 0.5s;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }

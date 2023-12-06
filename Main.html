@@ -17,13 +17,13 @@
             fileName = 'systemConfig'
             window.expose.SendExcel("sendReadExcel", fileName);
             window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
-                if (JSON.parse(data).password)
+                if (data.password)
                     login("User")
             })
         }
 
         function decrypt(password) {
-            var secretKey = "efrat";
+            var secretKey = "011429519";
             var decrypted = CryptoJS.AES.decrypt(password, secretKey);
             return decrypted.toString(CryptoJS.enc.Utf8);
         }
@@ -39,13 +39,9 @@
                 if (password.date && password.name && password.min && password.max) {
                     password.password = document.getElementById("password").value
                     fileName = "systemConfig"
-                    window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(password)]);
+                    window.expose.SendExcel("sendWriteExcel", [fileName, password]);
                     window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
-                        fileName = "manageConfig"
-                        window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify({ "gifts": [] })]);
-                        window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
-                            login("User")
-                        });
+                        login("User")
                     });
                 }
                 else {
@@ -69,8 +65,9 @@
             <br>
             <br>
             <div id="line2">הכניסי את הסיסמא</div>
-            <img class="circle" id="lottery-btn" onclick="check()" src="resources/icons/checkmark-outline.svg" />
-            <input type="text" id="password" class="elipse">
+            <img class="circle" style="height: 40px;" id="lottery-btn" onclick="check()"
+                src="resources/icons/check-light.svg" />
+            <input type="text" id="password" class="elipse input">
         </div>
     </div>
 </body>

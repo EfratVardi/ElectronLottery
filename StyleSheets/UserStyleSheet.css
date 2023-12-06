@@ -20,7 +20,7 @@
   padding-top: 3%;
   border-radius: 11px;
   border: 10px solid #00ffff;
-  background: rgba(253, 253, 253, 0.25);
+  background-color: transparent;
   font-size: 10vw;
   font-weight: 500;
   font-family: 'regularFont';
@@ -37,10 +37,6 @@
     0 0 10px #00ffff,
     0 0 5px #00ffff,
     0 0 10px #00ffff;
-}
-
-.circle {
-  padding: 7px;
 }
 
 @keyframes flicker {
@@ -79,3 +75,4 @@
   height: 70px;
   border-radius: 20px;
 }
+

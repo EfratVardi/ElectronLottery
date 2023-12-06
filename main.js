@@ -1,5 +1,6 @@
 const { Console } = require('console')
 const { app, BrowserWindow, ipcMain, session, dialog } = require('electron')
+const path = require('path');
 
 const fs = require('fs')
 let mainWindow
@@ -19,7 +20,7 @@ function createWindow() {
   mainWindow.loadFile('Main.html')
   mainWindow.menuBarVisible = false
   mainWindow.fullScreen = true;
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
   mainWindow.on('closed', () => {
     mainWindow = null
   })
@@ -56,30 +57,26 @@ function createWindow() {
 
 app.on('ready', createWindow)
 
-ipcMain.on("sendPrint", (event, args) => {
-  var options = {
-    silent: true
-  }
-  mainWindow.webContents.print(options, (success, failureReason) => {
-    mainWindow.webContents.send("receivePrint", success);
-  });
-});
-
 ipcMain.on("sendReadExcel", (event, args) => {
-  fs.readFile(args + '.txt',
+  const resourcePath = path.join(app.getAppPath(), 'resources');
+  const fullPath = path.join(resourcePath, args + '.json')
+  fs.readFile(fullPath,
     { encoding: 'utf8', flag: 'r' },
     function (err, data) {
       if (err) {
         mainWindow.webContents.send("receiveReadExcel" + args, 0);
       }
       else {
-        mainWindow.webContents.send("receiveReadExcel" + args, data);
+        mainWindow.webContents.send("receiveReadExcel" + args, JSON.parse(data));
+        console.log(data.password)
       }
     });
 });
 
 ipcMain.on("sendWriteExcel", (event, args) => {
-  fs.writeFile(args[0] + '.txt', args[1], err => {
+  const resourcePath = path.join(app.getAppPath(), 'resources');
+  const fullPath = path.join(resourcePath, args[0] + '.json')
+  fs.writeFile(fullPath, JSON.stringify(args[1]), err => {
     if (err) {
       console.error(err);
     }

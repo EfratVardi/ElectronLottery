@@ -77,6 +77,13 @@ input:focus {
     opacity: 0.3;
     border-radius: 50%;
     height: 100%;
+    padding: 7px;
+    transition: transform 0.3s;
+}
+
+.circle:hover,
+.circle:focus {
+    transform: scale(1.1);
 }
 
 .elipse {
@@ -86,6 +93,7 @@ input:focus {
     line-height: normal;
     height: 100%;
     border: none;
+    font-family: "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 .elipse:focus {
@@ -93,11 +101,23 @@ input:focus {
 }
 
 .menue {
+    position: absolute;
+    bottom: 2.5%;
+    left: 2.5%;
     display: flex;
     height: 40px;
+    width: 95%;
 }
 
-.close1 {
+.closeBtn {
     margin-left: 2.5%;
     width: 95%;
+    height: 40px;
+    text-align: left
+}
+
+.input {
+    height: 40px;
+    width: 30%;
+    direction: rtl;
 }

@@ -26,7 +26,7 @@
             window.expose.SendExcel("sendReadExcel", fileName);
             window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
                 if (data != 0) {
-                    systemConfig = JSON.parse(data)
+                    systemConfig = data
                 }
                 Object.entries(systemConfig).forEach(x => {
                     document.getElementById(x[0]).value = x[1]
@@ -54,7 +54,7 @@
                 systemConfig[key] = document.getElementById(x[0]).value
             })
             fileName = "systemConfig"
-            window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(systemConfig)]);
+            window.expose.SendExcel("sendWriteExcel", [fileName, systemConfig]);
             window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
                 location.reload()
             });

@@ -14,4 +14,4 @@ function getTodayDateTime() {
 
 function login(page) {
     window.location.href = page + '.html';
-  }
+}

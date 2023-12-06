@@ -21,19 +21,22 @@
         var selectedIndex = 1;
 
         function onLoad() {
+            document.getElementById('tune').play();
             fileName = 'systemConfig'
             window.expose.SendExcel("sendReadExcel", fileName);
             window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
                 if (data != 0) {
-                    systemConfig = JSON.parse(data)
+                    systemConfig = data
                     if (currentDate > systemConfig.date) {
                         login("Expired");
                     }
                     fileName = 'manageConfig'
                     window.expose.SendExcel("sendReadExcel", fileName);
                     window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
-                        manageConfig = JSON.parse(data)
+                        manageConfig = data
                         gifts = manageConfig.gifts;
+                        document.getElementById("line1").innerHTML = manageConfig.line1
+                        document.getElementById("line2").innerHTML = manageConfig.line2
                     })
                 }
             })
@@ -69,8 +72,10 @@
 
             // Display the generated lottery number on the page
             const promises = [];
-
+            var lotteryBtn = document.querySelector("#lottery-btn");
             var digits = lotteryNumber.toString().split("");
+            lotteryBtn.disabled = true
+            tuneVolume(0.05)
             music('lottery')
             lotteryNumberInputs.forEach(function (input, index) {
                 const promise = new Promise((resolve) => {
@@ -80,21 +85,23 @@
             });
             Promise.all(promises).then(() => {
                 lotteryNumberInputs.forEach(function (input, index) {
-                    music('win')
                     startGrowEffect(input)
                     resetGrowEffect(input)
                 });
-
+                music('win')
+                document.getElementById('win')
+                    .addEventListener("ended", function () {
+                        tuneVolume(1)
+                        // Change the button text to "Lottery Again"
+                        lotteryBtn.disabled = false
+                        lotteryBtn.textContent = "הגרלה חוזרת";
+                    });
                 //Update in TXT file
                 fileName = "manageConfig"
                 manageConfig.gifts = gifts
-                window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(manageConfig)]);
+                window.expose.SendExcel("sendWriteExcel", [fileName, manageConfig]);
                 window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
                 });
-
-                // Change the button text to "Lottery Again"
-                var lotteryBtn = document.querySelector("#lottery-btn");
-                lotteryBtn.textContent = "הגרלה חוזרת";
             });
         }
 
@@ -173,6 +180,8 @@
             document.getElementById("space").style.display = "none";
             document.getElementById("content").style.display = "block";
             document.getElementById("container").style.display = "flex";
+            document.getElementById("menue").style.display = "flex";
+
             document.getElementById("background").style.backgroundImage = 'url(resources/images/userBackground.gif)';
             if (manageConfig.gifts.length == 0) {
                 document.getElementById("line1").innerHTML = "אין נתונים";
@@ -182,26 +191,55 @@
                 displaySelectedGift()
             }
         }
+        function tuneVolume(vol) {
+            var tune = document.getElementById("tune");
+            if (tune.paused == false) {
+                tune.volume = vol;
+            }
+        }
 
         function music(type) {
-            document.getElementById(type).play();
+            var music = document.getElementById(type)
+            music.play();
+        }
+
+        function warpMusic(type) {
+            tuneVolume(0.05)
+            music(type)
+            document.getElementById(type).addEventListener("ended", function () {
+                tuneVolume(1)
+            });
+        }
+
+
+        function tune() {
+            var tune = document.getElementById('tune');
+            var tuneIcon = document.getElementById('tuneIcon');
+            if (tune.paused == false) {
+                tune.pause();
+                tuneIcon.src = "resources/icons/play-light.svg";
+            } else {
+                tune.play();
+                tuneIcon.src = "resources/icons/pause-light.svg";
+            }
         }
     </script>
     <div class="background" id="background">
-        <div class="close1" style="height: 40px; text-align: left;">
-            <img class="circle" onclick="expose.appClose()" src="resources/icons/close.svg" />
+        <div class="closeBtn">
+            <img class="circle" onclick="expose.appClose()" src="resources/icons/x-light.svg" />
         </div>
         <div class="text">
             <div id="space">
                 <br>
                 <br>
             </div>
-            <div id="line1">ברוכות הבאות להגרלה</div>
-            <div id="line2">...מתחילים עוד מעט</div>
+            <div id="line1"></div>
+            <div id="line2"></div>
             <div id="start">
                 <br>
                 <br>
-                <button class="elipse flicker-button neon" onclick="start()">!...מתחילים</button>
+                <button class="elipse flicker-button neon" onclick="start()"
+                    style="font-family: 'lineFont';">!...מתחילים</button>
             </div>
             <br>
             <br>
@@ -212,28 +250,25 @@
                     <input class="lottery-number-input" readonly>
                     <input class="lottery-number-input" readonly>
                 </div>
-                <br>
-                <br>
-                <br>
-                <div class="menue">
-                    <div style="width: 33%; text-align: left;">
-                        <img class="circle" onclick="login('Manage')" src="resources/icons/settings-outline.svg" />
-                    </div>
-                    <div style="width: 33%; text-align: center;">
-                        <img class="circle" id="next" onclick="next()" src="resources/icons/arrow-back.svg" />
-                        <button class="elipse" id="lottery-btn" onclick="generateLotteryNumber()">הגרלה</button>
-                        <img class="circle" id="prev" onclick="prev()" src="resources/icons/arrow-forward.svg"
-                            style="pointer-events: none;" />
-                    </div>
-                    <div style="width: 33%; text-align: right;">
-                        <img class="circle" onclick="music('clap')" src="resources/icons/musical-notes-outline.svg" />
-                        <img class="circle" onclick="music('trumpet')" src="resources/icons/megaphone-outline.svg" />
-                        <img class="circle" onclick="music('clap')" src="resources/icons/musical-notes-outline.svg" />
-                    </div>
-                </div>
             </div>
         </div>
-
+        <div class="menue" id="menue" style="display: none;">
+            <div style="width: 33%; text-align: left;">
+                <img class="circle" onclick="login('Manage')" src="resources/icons/gear-six-light.svg" />
+                <img class="circle" id='tuneIcon' onclick="tune()" src="resources/icons/pause-light.svg" />
+            </div>
+            <div style="width: 33%; text-align: center;">
+                <img class="circle" id="next" onclick="next()" src="resources/icons/arrow-fat-left-light.svg" />
+                <button class="elipse" id="lottery-btn" onclick="generateLotteryNumber()">הגרלה</button>
+                <img class="circle" id="prev" onclick="prev()" src="resources/icons/arrow-fat-right-light.svg"
+                    style="pointer-events: none;" />
+            </div>
+            <div style="width: 33%; text-align: right;">
+                <img class="circle" onclick="warpMusic('clap')" src="resources/icons/hands-clapping-light.svg" />
+                <img class="circle" onclick="warpMusic('trumpet')" src="resources/icons/music-note-simple-light.svg" />
+                <img class="circle" onclick="warpMusic('clap')" src="resources/icons/music-notes-simple-light.svg" />
+            </div>
+        </div>
         <audio id="clap">
             <source src="resources/music/clap.mp3" type="audio/mpeg" />
         </audio>
@@ -245,6 +280,9 @@
         </audio>
         <audio id="win">
             <source src="resources/music/win.mp3" type="audio/mpeg" />
+        </audio>
+        <audio loop id="tune">
+            <source src="resources/music/tune.mp3" type="audio/mpeg" />
         </audio>
 </body>
 

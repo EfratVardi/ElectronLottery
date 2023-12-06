@@ -27,7 +27,7 @@
             window.expose.SendExcel("sendReadExcel", fileName);
             window.expose.ReceiveExcel("receiveReadExcel" + fileName, (data) => {
                 if (data != 0) {
-                    manageConfig = JSON.parse(data)
+                    manageConfig = data
                     gridOptions = {
                         columnDefs: [
                             { headerName: "", field: "id" },
@@ -52,6 +52,9 @@
                     };
                     gridDiv = document.querySelector('#giftsGrid');
                     new agGrid.Grid(gridDiv, gridOptions);
+
+                    document.getElementById("l1").value = manageConfig.line1
+                    document.getElementById("l2").value = manageConfig.line2
                 }
             })
         }
@@ -90,7 +93,7 @@
             }
 
             fileName = 'manageConfig'
-            window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(manageConfig)]);
+            window.expose.SendExcel("sendWriteExcel", [fileName, manageConfig]);
             window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
                 location.reload()
             });
@@ -108,7 +111,7 @@
                 "lotteryNumber": null
             })
             fileName = 'manageConfig'
-            window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(manageConfig)]);
+            window.expose.SendExcel("sendWriteExcel", [fileName, manageConfig]);
             window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
                 location.reload()
             });
@@ -116,7 +119,7 @@
 
         function onCellEditingStopped(params) {
             fileName = 'manageConfig'
-            window.expose.SendExcel("sendWriteExcel", [fileName, JSON.stringify(manageConfig)]);
+            window.expose.SendExcel("sendWriteExcel", [fileName, manageConfig]);
             window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
             });
         }
@@ -127,27 +130,44 @@
             };
             gridOptions.api.exportDataAsCsv(params);
         }
+
+        function updateTitle() {
+            manageConfig.line1 = document.getElementById("l1").value
+            manageConfig.line2 = document.getElementById("l2").value
+            fileName = 'manageConfig'
+            window.expose.SendExcel("sendWriteExcel", [fileName, manageConfig]);
+            window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
+                var imageElement = document.getElementById("update");
+                imageElement.classList.add("updated");
+                setTimeout(function () {
+                    imageElement.classList.remove("updated");
+                }, 500);
+            });
+        }
     </script>
     <div class="background" id="background">
-        <div class="close1" style="height: 40px; text-align: left;">
-            <img class="circle" onclick="expose.appClose()" src="resources/icons/close.svg" />
+        <div class="closeBtn">
+            <img class="circle" onclick="expose.appClose()" src="resources/icons/x-light.svg" />
         </div>
         <div class="text">
             <div id="line1">ברוכה הבאה לממשק ניהול</div>
-            <div id="line2">כאן אפשר להוסיף משימות ולהוריד את הנתונים</div>
-
-            <div style="height: 30px; width: 30%; float:right">
-                <img class="circle" onclick="exportData('רשימת הזוכים')" src="resources/icons/arrow-down.svg" />
-                <img class="circle" onclick="add()" src="resources/icons/add.svg" />
+            <div id="line2">כאן אפשר להוסיף מתנות ולהוריד את הנתונים</div>
+            <div style="width: 30%; float:right">
+                <img class="circle" onclick="exportData('רשימת הזוכים')"
+                    src="resources/icons/download-simple-light.svg" />
+                <img class="circle" onclick="add()" src="resources/icons/plus-light.svg" />
             </div>
             <div id="giftsGrid" class="ag-theme-alpine"></div>
-            <br>
-            <br>
-            <div class="menue">
-                <div style="width: 50%; text-align: left;">
-                    <img class="circle" onclick="login('User')" src="resources/icons/sparkles-outline.svg"
-                        style="padding: 7px;" />
-                </div>
+            <form>
+                <img class="circle updated-image" id="update" style="height: 40px; transform: none !important;
+                " onclick="updateTitle()" src="resources/icons/check-light.svg" />
+                <input type="text" class="elipse input" id="l2">
+                <input type="text" class="elipse input" id="l1">
+            </form>
+        </div>
+        <div class="menue">
+            <div style="width: 33%; text-align: left;">
+                <img class="circle" onclick="login('User')" src="resources/icons/sparkle-light.svg" />
             </div>
         </div>
         <input type="text" class="my-input" id="code">
