@@ -68,7 +68,6 @@ ipcMain.on("sendReadExcel", (event, args) => {
       }
       else {
         mainWindow.webContents.send("receiveReadExcel" + args, JSON.parse(data));
-        console.log(data.password)
       }
     });
 });
