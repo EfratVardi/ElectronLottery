@@ -41,7 +41,11 @@
                     fileName = "systemConfig"
                     window.expose.SendExcel("sendWriteExcel", [fileName, password]);
                     window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
-                        login("User")
+                        fileName = "manageConfig"
+                        window.expose.SendExcel("sendWriteExcel", [fileName, getDefaultConfig()]);
+                        window.expose.ReceiveExcel("receiveWriteExcel" + fileName, (data) => {
+                            login("User")
+                        });
                     });
                 }
                 else {

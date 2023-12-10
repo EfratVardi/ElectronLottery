@@ -20,7 +20,9 @@ function createWindow() {
   mainWindow.loadFile('Main.html')
   mainWindow.menuBarVisible = false
   mainWindow.fullScreen = true;
-  // mainWindow.webContents.openDevTools();
+  if (!app.isPackaged) {
+    mainWindow.webContents.openDevTools();
+  }
   mainWindow.on('closed', () => {
     mainWindow = null
   })
@@ -58,8 +60,7 @@ function createWindow() {
 app.on('ready', createWindow)
 
 ipcMain.on("sendReadExcel", (event, args) => {
-  const resourcePath = path.join(app.getAppPath(), 'resources');
-  const fullPath = path.join(resourcePath, args + '.json')
+  const fullPath = args + '.json';
   fs.readFile(fullPath,
     { encoding: 'utf8', flag: 'r' },
     function (err, data) {
@@ -73,8 +74,7 @@ ipcMain.on("sendReadExcel", (event, args) => {
 });
 
 ipcMain.on("sendWriteExcel", (event, args) => {
-  const resourcePath = path.join(app.getAppPath(), 'resources');
-  const fullPath = path.join(resourcePath, args[0] + '.json')
+  const fullPath =args[0] + '.json';
   fs.writeFile(fullPath, JSON.stringify(args[1]), err => {
     if (err) {
       console.error(err);

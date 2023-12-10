@@ -15,3 +15,7 @@ function getTodayDateTime() {
 function login(page) {
     window.location.href = page + '.html';
 }
+
+function getDefaultConfig() {
+    return {"gifts":[],"line1":"ברוכות הבאות","line2":"עוד מעט מתחילים"};
+}
