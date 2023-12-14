@@ -16,9 +16,18 @@
     vertical-align: middle;
     height: 80%;
     opacity: 0.5;
-    direction: rtl;
     width: 80%
 }
+
+.ag-cell-value {
+    direction: rtl;
+}
+
+.ag-cell {
+    border: solid 1px;
+    border-color: gray;
+}
+
 
 .remove {
     padding: 2px;

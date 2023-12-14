@@ -42,6 +42,7 @@ html {
 }
 
 #line1 {
+    direction: rtl;
     font-size: 5vw;
     color: #fcbdf9;
     font-weight: 800;
@@ -58,6 +59,7 @@ html {
 }
 
 #line2 {
+    direction: rtl;
     font-size: 3vw;
     color: #e028e5;
 }
