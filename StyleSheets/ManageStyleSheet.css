@@ -24,8 +24,8 @@
 }
 
 .ag-cell {
-    border: solid 1px;
-    border-color: gray;
+    border: solid 0.5px;
+    border-color: rgb(163, 160, 160);
 }
 
 

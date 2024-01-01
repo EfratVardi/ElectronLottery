@@ -30,17 +30,17 @@
                     manageConfig = data
                     gridOptions = {
                         columnDefs: [
-                            { headerName: "", field: "id" },
+                            { headerName: "", field: "id", maxWidth: 50 },
                             { headerName: "שם", field: "name", editable: true },
                             { headerName: "תיאור", field: "description", editable: true },
-                            { headerName: "מספר זוכה", field: "lotteryNumber" },
+                            { headerName: "מספר זוכה", field: "lotteryNumber"},
                             {
                                 cellRendererSelector: function (params) {
                                     const removeDetils = {
                                         component: 'removeCellRenderer'
                                     };
                                     return removeDetils;
-                                },
+                                }, maxWidth: 100 
                             }
                         ],
                         components: {
